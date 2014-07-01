@@ -25,12 +25,6 @@ public class CodeForestProjectPropertyTester extends PropertyTester {
             return false;
         }
 
-        Map<String, List<IResource>> xmlFiles = ProjectUtils.xmlFilesOf(project);
-
-        if (!xmlFiles.containsKey("codeforest.xml") || xmlFiles.get("codeforest.xml").size() > 1) {
-            return false;
-        }
-
         return ProjectUtils.javaFilesOf(project).size() > 0;
     }
 }

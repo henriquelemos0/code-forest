@@ -1,13 +1,26 @@
 package br.usp.each.saeg.code.forest.ui.project;
 
-import java.util.*;
-import org.eclipse.core.resources.*;
-import org.eclipse.core.runtime.*;
-import org.eclipse.jdt.core.*;
-import org.eclipse.jdt.internal.core.*;
-import org.eclipse.jface.viewers.*;
-import org.eclipse.ui.*;
-import br.usp.each.saeg.code.forest.ui.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.IResource;
+import org.eclipse.core.resources.IResourceVisitor;
+import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.QualifiedName;
+import org.eclipse.jdt.core.IJavaElement;
+import org.eclipse.jdt.core.IJavaProject;
+import org.eclipse.jdt.core.JavaCore;
+import org.eclipse.jdt.internal.core.PackageFragmentRoot;
+import org.eclipse.jface.viewers.ISelection;
+import org.eclipse.jface.viewers.IStructuredSelection;
+import org.eclipse.ui.ISelectionService;
+import org.eclipse.ui.IWorkbenchWindow;
+
+import br.usp.each.saeg.code.forest.ui.CodeForestUIPlugin;
 
 /**
  * @author Danilo Mutti (dmutti@gmail.com)
@@ -79,6 +92,10 @@ public class ProjectUtils {
     public static IProject getCurrentSelectedProject() {
         return getCurrentSelectedProject(CodeForestUIPlugin.getActiveWorkbenchWindow());
     }
+    
+    public static IJavaProject getCurrentSelectedJavaProject() {
+    	return getCurrentSelectedJavaProject(CodeForestUIPlugin.getActiveWorkbenchWindow());
+    }
 
     public static IProject getCurrentSelectedProject(IWorkbenchWindow window) {
         IProject project = null;
@@ -100,5 +117,18 @@ public class ProjectUtils {
             }
         }
         return project;
+    }
+    
+    public static IJavaProject getCurrentSelectedJavaProject(IWorkbenchWindow window) {
+    	IProject project = getCurrentSelectedProject(window);
+
+		try {
+			if (project.isNatureEnabled("org.eclipse.jdt.core.javanature")) {
+			      return JavaCore.create(project);
+			}
+		} catch (CoreException e) {
+			e.printStackTrace();
+		}
+        return null;
     }
 }

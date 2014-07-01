@@ -1,7 +1,9 @@
 package br.usp.each.saeg.code.forest.xml;
 
-import java.math.*;
-import javax.xml.bind.annotation.*;
+import java.math.BigDecimal;
+
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  * @author Danilo Mutti (dmutti@gmail.com)

@@ -1,104 +1,142 @@
 package br.usp.each.saeg.code.forest.ui.handlers;
 
-import java.util.*;
-import org.eclipse.core.commands.*;
-import org.eclipse.core.resources.*;
-import org.eclipse.jdt.core.*;
-import org.eclipse.jdt.core.dom.*;
-import org.eclipse.ui.*;
-import org.eclipse.ui.handlers.*;
-import br.usp.each.saeg.code.forest.domain.*;
-import br.usp.each.saeg.code.forest.source.parser.*;
-import br.usp.each.saeg.code.forest.ui.*;
-import br.usp.each.saeg.code.forest.ui.markers.*;
-import br.usp.each.saeg.code.forest.ui.project.*;
-import br.usp.each.saeg.code.forest.xml.*;
+import java.util.Hashtable;
+import java.util.IdentityHashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.eclipse.core.commands.AbstractHandler;
+import org.eclipse.core.commands.ExecutionEvent;
+import org.eclipse.core.commands.ExecutionException;
+import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.IResource;
+import org.eclipse.jdt.core.JavaCore;
+import org.eclipse.jdt.core.dom.AST;
+import org.eclipse.jdt.core.dom.ASTParser;
+import org.eclipse.jdt.core.dom.CompilationUnit;
+import org.eclipse.ui.IEditorReference;
+import org.eclipse.ui.IWorkbenchPage;
+import org.eclipse.ui.IWorkbenchWindow;
+import org.eclipse.ui.handlers.HandlerUtil;
+
+import br.usp.each.saeg.code.forest.domain.TreeDataBuilder;
+import br.usp.each.saeg.code.forest.domain.TreeDataBuilderResult;
+import br.usp.each.saeg.code.forest.source.parser.ParsingResult;
+import br.usp.each.saeg.code.forest.source.parser.SourceCodeParser;
+import br.usp.each.saeg.code.forest.source.parser.SourceCodeUtils;
+import br.usp.each.saeg.code.forest.ui.CodeForestUIPlugin;
+import br.usp.each.saeg.code.forest.ui.markers.CodeMarkerFactory;
+import br.usp.each.saeg.code.forest.ui.project.ProjectPersistence;
+import br.usp.each.saeg.code.forest.ui.project.ProjectState;
+import br.usp.each.saeg.code.forest.ui.project.ProjectUtils;
+import br.usp.each.saeg.code.forest.xml.XmlInput;
 
 /**
  * @author Danilo Mutti (dmutti@gmail.com)
  */
 public class RunAnalysisHandler extends AbstractHandler {
 
-    @Override
-    public Object execute(ExecutionEvent arg) throws ExecutionException {
-        final IProject project = ProjectUtils.getCurrentSelectedProject();
-        if (!project.isOpen()) {
-            return null;
-        }
+	private IProject project;
+	
+	public RunAnalysisHandler() {
+		super();
+	}
 
-        Map<String, List<IResource>> xmlFiles = ProjectUtils.xmlFilesOf(project);
-        XmlInput xmlInput = readXML(xmlFiles.get("codeforest.xml").get(0));
+	public RunAnalysisHandler(IProject project) {
+		super();
+		this.project = project;
+	}
 
-        ProjectState state = ProjectPersistence.getStateOf(project);
-        if (state == null) {
-            return null;
-        }
-        Map<IResource, List<Map<String, Object>>> resourceMarkerProps = new IdentityHashMap<IResource, List<Map<String,Object>>>();
+	@Override
+	public Object execute(ExecutionEvent arg) throws ExecutionException {
+		if (project == null){
+				project = ProjectUtils.getCurrentSelectedProject();
+		}
+		
+		if (!project.isOpen()) {
+			return null;
+		}
+		XmlInput xmlInput = readXML(project.getFile("codeforest.xml"));
 
-        for (List<IResource> files : ProjectUtils.javaFilesOf(project).values()) {
-            for (IResource file : files) {
-                ParsingResult result = parse(file, xmlInput);
-                TreeDataBuilderResult buildResult = TreeDataBuilder.from(result, SourceCodeUtils.read(file));
-                resourceMarkerProps.put(buildResult.getResource(), buildResult.getMarkerProperties());
-                state.getAnalysisResult().put(result.getURI(), buildResult.getTreeData());
-            }
-        }
+		ProjectState state = ProjectPersistence.getStateOf(project);
+		if (state == null) {
+			return null;
+		}
+		Map<IResource, List<Map<String, Object>>> resourceMarkerProps = new IdentityHashMap<IResource, List<Map<String, Object>>>();
 
-        CodeMarkerFactory.scheduleMarkerCreation(resourceMarkerProps);
-        IWorkbenchWindow window = HandlerUtil.getActiveWorkbenchWindow(arg);
-        IWorkbenchPage page = window.getActivePage();
-        for (IEditorReference editorRef : page.getEditorReferences()) {
-            CodeForestUIPlugin.getEditorTracker().annotateEditor(editorRef);
-        }
-        state.setAnalyzed(true);
-        CodeForestUIPlugin.ui(project, this, "run analysis");
+		for (List<IResource> files : ProjectUtils.javaFilesOf(project).values()) {
+			for (IResource file : files) {
+				ParsingResult result = parse(file, xmlInput);
+				TreeDataBuilderResult buildResult = TreeDataBuilder.from(result, SourceCodeUtils.read(file));
+				resourceMarkerProps.put(buildResult.getResource(), buildResult.getMarkerProperties());
+				state.getAnalysisResult().put(result.getURI(), buildResult.getTreeData());
+			}
+		}
 
-        return null;
-    }
+		CodeMarkerFactory.scheduleMarkerCreation(resourceMarkerProps);
+		IWorkbenchWindow window = HandlerUtil.getActiveWorkbenchWindow(arg);
+		IWorkbenchPage page = window.getActivePage();
+		for (IEditorReference editorRef : page.getEditorReferences()) {
+			CodeForestUIPlugin.getEditorTracker().annotateEditor(editorRef);
+		}
+		state.setAnalyzed(true);
+		CodeForestUIPlugin.ui(project, this, "run analysis");
 
-    private XmlInput readXML(IResource resource) {
-        try {
-            return XmlInput.unmarshal(resource.getLocation().toFile());
-        } catch (Exception e) {
-            CodeForestUIPlugin.log(e);
-            return new XmlInput();
-        }
-    }
+		return null;
+	}
 
-    private ParsingResult parse(final IResource file, final XmlInput input) {
-        //quando abrir o arquivo no editor, adiciona as anotacoes... por isso existe o listener
+	private XmlInput readXML(IResource resource) {
+		try {
+			return XmlInput.unmarshal(resource.getLocation().toFile());
+		} catch (Exception e) {
+			CodeForestUIPlugin.log(e);
+			return new XmlInput();
+		}
+	}
 
-        ASTParser parser = ASTParser.newParser(AST.JLS4);
-        parser.setKind(ASTParser.K_COMPILATION_UNIT);
-        char[] trimmedSource = SourceCodeUtils.readAndTrim(file);
-        parser.setSource(trimmedSource);
-        parser.setResolveBindings(true);
+	private ParsingResult parse(final IResource file, final XmlInput input) {
+		// quando abrir o arquivo no editor, adiciona as anotacoes... por isso
+		// existe o listener
 
-        Hashtable<String, String> options = JavaCore.getOptions();
-        options.put(JavaCore.COMPILER_DOC_COMMENT_SUPPORT, JavaCore.DISABLED);
-        parser.setCompilerOptions(options);
+		ASTParser parser = ASTParser.newParser(AST.JLS4);
+		parser.setKind(ASTParser.K_COMPILATION_UNIT);
+		char[] trimmedSource = SourceCodeUtils.readAndTrim(file);
+		parser.setSource(trimmedSource);
+		parser.setResolveBindings(true);
 
-        CompilationUnit cu = (CompilationUnit) parser.createAST(null);
+		Hashtable<String, String> options = JavaCore.getOptions();
+		options.put(JavaCore.COMPILER_DOC_COMMENT_SUPPORT, JavaCore.DISABLED);
+		parser.setCompilerOptions(options);
 
-        ParsingResult result = new ParsingResult(file);
-        cu.accept(new SourceCodeParser(cu, trimmedSource, input, result));
-        return result;
-    }
+		CompilationUnit cu = (CompilationUnit) parser.createAST(null);
 
-    @Override
-    public boolean isEnabled() {
-        IProject project = ProjectUtils.getCurrentSelectedProject();
-        if (project == null) {
-            return false;
-        }
+		ParsingResult result = new ParsingResult(file);
+		cu.accept(new SourceCodeParser(cu, trimmedSource, input, result));
+		return result;
+	}
 
-        ProjectState state = ProjectPersistence.getStateOf(project);
-        if (state == null) {
-            return false;
-        }
-        if (!state.isAnalyzed()) {
-            return true;
-        }
-        return false;
-    }
+	@Override
+	public boolean isEnabled() {
+		IProject project = ProjectUtils.getCurrentSelectedProject();
+		if (project == null) {
+			return false;
+		}
+
+		ProjectState state = ProjectPersistence.getStateOf(project);
+		if (state == null) {
+			return false;
+		}
+		
+		Map<String, List<IResource>> xmlFiles = ProjectUtils.xmlFilesOf(project);
+
+		if (!xmlFiles.containsKey("codeforest.xml") || xmlFiles.get("codeforest.xml").size() > 1) {
+			return false;
+		}
+		
+		if (!state.isAnalyzed()) {
+			return true;
+		}
+
+		return false;
+	}
 }

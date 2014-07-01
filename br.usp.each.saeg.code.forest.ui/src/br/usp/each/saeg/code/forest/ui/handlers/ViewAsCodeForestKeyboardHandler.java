@@ -3,6 +3,7 @@ package br.usp.each.saeg.code.forest.ui.handlers;
 import org.eclipse.core.commands.*;
 import org.eclipse.core.resources.*;
 import org.eclipse.ui.*;
+
 import br.usp.each.saeg.code.forest.ui.*;
 import br.usp.each.saeg.code.forest.ui.project.*;
 import br.usp.each.saeg.code.forest.ui.views.*;
@@ -12,15 +13,30 @@ import br.usp.each.saeg.code.forest.ui.views.*;
  */
 public class ViewAsCodeForestKeyboardHandler extends OnlyAfterAnalysisHandler {
 
-    @Override
-    public Object execute(ExecutionEvent arg) throws ExecutionException {
+	IProject project;
+	
+	
+    public ViewAsCodeForestKeyboardHandler() {
+		super();
+	}
 
-        IProject project = ProjectUtils.getCurrentSelectedProject();
+	public ViewAsCodeForestKeyboardHandler(IProject project) {
+		super();
+		this.project = project;
+	}
+
+	@Override
+    public Object execute(ExecutionEvent arg) throws ExecutionException {
+		if (project == null){
+			project = ProjectUtils.getCurrentSelectedProject();
+		}
+		
         try {
-            CodeForestUIPlugin.getActiveWorkbenchWindow().getActivePage().showView(CodeForestKeyboardView.VIEW_ID, project.getName(), IWorkbenchPage.VIEW_VISIBLE);
+        	PlatformUI.getWorkbench().getWorkbenchWindows()[0].getActivePage().showView(CodeForestKeyboardView.VIEW_ID, project.getName(), IWorkbenchPage.VIEW_VISIBLE);
 
         } catch (Exception e) {
-            CodeForestUIPlugin.log(e);
+        	e.printStackTrace();
+//            CodeForestUIPlugin.log(e);
         }
         CodeForestUIPlugin.ui(project, this, "code forest keyboard");
         return null;

@@ -1,24 +1,8 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: br.usp.each.saeg.code.forest.ui
+Bundle-Name: Ui
 Bundle-SymbolicName: br.usp.each.saeg.code.forest.ui;singleton:=true
 Bundle-Version: 1.0.0.qualifier
-Bundle-Activator: br.usp.each.saeg.code.forest.ui.CodeForestUIPlugin
-Bundle-Vendor: SAEG-EACH-USP
-Require-Bundle: org.eclipse.core.runtime,
- org.eclipse.ui,
- org.eclipse.jface.text,
- org.eclipse.ui.editors,
- org.eclipse.core.expressions,
- org.eclipse.core.resources,
- org.eclipse.core.runtime,
- org.eclipse.ui.ide,
- org.eclipse.jdt.core,
- org.eclipse.jdt.ui,
- org.eclipse.jdt.launching,
- org.eclipse.debug.core
-Bundle-RequiredExecutionEnvironment: JavaSE-1.6
-Bundle-ActivationPolicy: lazy
 Bundle-ClassPath: .,
  lib/j3dcore.jar,
  lib/j3dutils.jar,
@@ -30,3 +14,39 @@ Bundle-ClassPath: .,
  lib/joal.jar,
  swing2swt.jar,
  lib/swingintegration.example_0.0.2.jar
+Bundle-Activator: br.usp.each.saeg.code.forest.ui.Activator
+Export-Package: br.usp.each.saeg.code.forest.domain,
+ br.usp.each.saeg.code.forest.metaphor,
+ br.usp.each.saeg.code.forest.metaphor.assembler,
+ br.usp.each.saeg.code.forest.metaphor.building.blocks,
+ br.usp.each.saeg.code.forest.metaphor.collision,
+ br.usp.each.saeg.code.forest.metaphor.integration,
+ br.usp.each.saeg.code.forest.metaphor.mouse,
+ br.usp.each.saeg.code.forest.metaphor.util,
+ br.usp.each.saeg.code.forest.source.parser,
+ br.usp.each.saeg.code.forest.ui,
+ br.usp.each.saeg.code.forest.ui.handlers,
+ br.usp.each.saeg.code.forest.ui.listeners,
+ br.usp.each.saeg.code.forest.ui.markers,
+ br.usp.each.saeg.code.forest.ui.project,
+ br.usp.each.saeg.code.forest.ui.views,
+ br.usp.each.saeg.code.forest.util,
+ br.usp.each.saeg.code.forest.xml
+Require-Bundle: org.eclipse.core.runtime,
+ org.eclipse.ui,
+ org.eclipse.jface.text,
+ org.eclipse.ui.editors,
+ org.eclipse.core.expressions,
+ org.eclipse.core.resources,
+ org.eclipse.core.runtime,
+ org.eclipse.ui.ide,
+ org.eclipse.jdt.core,
+ org.eclipse.jdt.ui,
+ org.eclipse.jdt.launching,
+ org.eclipse.debug.core,
+ org.eclipse.ui,
+ org.eclipse.core.runtime,
+ org.eclipse.ui,
+ org.eclipse.core.runtime
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7
+Bundle-ActivationPolicy: lazy
