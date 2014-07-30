@@ -10,6 +10,7 @@ import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
+import org.eclipse.core.runtime.CoreException;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.core.dom.AST;
 import org.eclipse.jdt.core.dom.ASTParser;
@@ -56,6 +57,13 @@ public class RunAnalysisHandler extends AbstractHandler {
 		if (!project.isOpen()) {
 			return null;
 		}
+		
+		try {
+			project.refreshLocal(IResource.DEPTH_ONE, null);
+		} catch (CoreException e) {
+			e.printStackTrace();
+		}
+		
 		XmlInput xmlInput = readXML(project.getFile("codeforest.xml"));
 
 		ProjectState state = ProjectPersistence.getStateOf(project);
