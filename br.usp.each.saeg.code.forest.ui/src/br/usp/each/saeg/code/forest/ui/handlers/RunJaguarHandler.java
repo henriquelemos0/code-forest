@@ -57,9 +57,7 @@ public class RunJaguarHandler extends AbstractHandler implements IJavaLaunchConf
 		if (state == null) {
 			return false;
 		}
-		if (!state.isAnalyzed()) {
-			return true;
-		}
-		return false;
+		
+		return true;
 	}
 }
