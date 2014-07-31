@@ -57,8 +57,12 @@ public class RunAllHandler extends AbstractHandler implements IJavaLaunchConfigu
 				}
 				
 				try {
+					//TODO entender melhor o erro "Invalid thread access" e remover esse sleep
+					Thread.sleep(10000);
 					keyboardHandler.execute(arg);
-				} catch (ExecutionException e) {
+				} catch (ExecutionException e){
+					e.printStackTrace();
+				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}
 				

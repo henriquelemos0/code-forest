@@ -38,7 +38,7 @@ public class CodeForestUIPlugin extends AbstractUIPlugin {
     }
 
     public void stop(BundleContext context) throws Exception {
-        instance = null;
+    	instance = null;
         super.stop(context);
     }
 
@@ -47,7 +47,7 @@ public class CodeForestUIPlugin extends AbstractUIPlugin {
     }
 
     public static EditorTracker getEditorTracker() {
-        return instance.tracker;
+    	return instance.tracker;
     }
 
     public static void log(Throwable t) {

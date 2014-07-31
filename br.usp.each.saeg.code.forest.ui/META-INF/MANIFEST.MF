@@ -14,7 +14,7 @@ Bundle-ClassPath: .,
  lib/joal.jar,
  swing2swt.jar,
  lib/swingintegration.example_0.0.2.jar
-Bundle-Activator: br.usp.each.saeg.code.forest.ui.Activator
+Bundle-Activator: br.usp.each.saeg.code.forest.ui.CodeForestUIPlugin
 Export-Package: br.usp.each.saeg.code.forest.domain,
  br.usp.each.saeg.code.forest.metaphor,
  br.usp.each.saeg.code.forest.metaphor.assembler,

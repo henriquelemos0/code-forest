@@ -26,6 +26,7 @@ import br.usp.each.saeg.code.forest.source.parser.ParsingResult;
 import br.usp.each.saeg.code.forest.source.parser.SourceCodeParser;
 import br.usp.each.saeg.code.forest.source.parser.SourceCodeUtils;
 import br.usp.each.saeg.code.forest.ui.CodeForestUIPlugin;
+import br.usp.each.saeg.code.forest.ui.EditorTracker;
 import br.usp.each.saeg.code.forest.ui.markers.CodeMarkerFactory;
 import br.usp.each.saeg.code.forest.ui.project.ProjectPersistence;
 import br.usp.each.saeg.code.forest.ui.project.ProjectState;
