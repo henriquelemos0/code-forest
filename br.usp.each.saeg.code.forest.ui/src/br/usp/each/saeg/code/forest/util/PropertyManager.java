@@ -9,11 +9,12 @@ import br.usp.each.saeg.code.forest.ui.project.ProjectUtils;
 
 public class PropertyManager {
 
+	private static final String FOLDER_SEPARATOR = System.getProperty("file.separator");
 	private static final String PROJECT_DIR = ProjectUtils.getCurrentSelectedProject().getLocation().toString();
-	private static final String COMPILED_CLASSES_DIR = ProjectUtils.getCurrentSelectedProject().getLocation() + "/target/classes";
-	private static final String COMPILED_TESTS_DIR = ProjectUtils.getCurrentSelectedProject().getLocation() + "/target/test-classes";
-	private static final String JAGUAR_JAR = ProjectUtils.getCurrentSelectedProject().getLocation() + "/jaguar.jar";
-	private static final String JACOCO_AGENT_JAR = ProjectUtils.getCurrentSelectedProject().getLocation() + "/jacocoagent.jar";
+	private static final String COMPILED_CLASSES_DIR = ProjectUtils.getCurrentSelectedProject().getLocation() + FOLDER_SEPARATOR + "target" + FOLDER_SEPARATOR + "classes";
+	private static final String COMPILED_TESTS_DIR = ProjectUtils.getCurrentSelectedProject().getLocation() + FOLDER_SEPARATOR + "target" + FOLDER_SEPARATOR + "test-classes";
+	private static final String JAGUAR_JAR = ProjectUtils.getCurrentSelectedProject().getLocation() + FOLDER_SEPARATOR + "jaguar.jar";
+	private static final String JACOCO_AGENT_JAR = ProjectUtils.getCurrentSelectedProject().getLocation() + FOLDER_SEPARATOR + "jacocoagent.jar";
 	private static final String HEURISTIC = "Tarantula";
 	private static final String CONFIG_FILE = "codeforest.properties";
 	
@@ -30,7 +31,7 @@ public class PropertyManager {
 	}
 
 	private void loadProperties() {
-		Properties prop = getPropertyFile(ProjectUtils.getCurrentSelectedProject().getLocation() + "/" + CONFIG_FILE);
+		Properties prop = getPropertyFile(ProjectUtils.getCurrentSelectedProject().getLocation() + FOLDER_SEPARATOR + CONFIG_FILE);
 		if (prop == null) {
 			System.out.println("Using default properties!");
 			setJacocoAgentJar(JACOCO_AGENT_JAR);
@@ -105,7 +106,7 @@ public class PropertyManager {
 	}
 
 	public String getProperty(String propertyName) {
-		return getProperty(propertyName, ProjectUtils.getCurrentSelectedProject().getLocation() + "/" + CONFIG_FILE);
+		return getProperty(propertyName, ProjectUtils.getCurrentSelectedProject().getLocation() + FOLDER_SEPARATOR + CONFIG_FILE);
 	}
 
 	public String getProperty(String propertyName, String fileName) {
@@ -134,4 +135,5 @@ public class PropertyManager {
 		}
 		return prop;
 	}
+	
 }
