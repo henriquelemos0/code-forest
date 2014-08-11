@@ -7,7 +7,9 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.debug.core.ILaunch;
 import org.eclipse.debug.core.ILaunchesListener2;
 import org.eclipse.jdt.launching.IJavaLaunchConfigurationConstants;
+import org.eclipse.ui.PlatformUI;
 
+import br.usp.each.saeg.code.forest.ui.CodeForestUIPlugin;
 import br.usp.each.saeg.code.forest.ui.project.ProjectPersistence;
 import br.usp.each.saeg.code.forest.ui.project.ProjectState;
 import br.usp.each.saeg.code.forest.ui.project.ProjectUtils;
@@ -31,23 +33,23 @@ public class RunAllHandler extends AbstractHandler implements IJavaLaunchConfigu
 		if (state == null) {
 			return null;
 		}
-		
+
 		final RunAnalysisHandler analysisHandler = new RunAnalysisHandler(project);
 		final ViewAsCodeForestKeyboardHandler keyboardHandler = new ViewAsCodeForestKeyboardHandler(project);
 		RunJaguarHandler jaguarHandler = new RunJaguarHandler(new ILaunchesListener2() {
-			
+
 			@Override
 			public void launchesRemoved(ILaunch[] arg0) {
 			}
-			
+
 			@Override
 			public void launchesChanged(ILaunch[] arg0) {
 			}
-			
+
 			@Override
 			public void launchesAdded(ILaunch[] arg0) {
 			}
-			
+
 			@Override
 			public void launchesTerminated(ILaunch[] arg0) {
 				try {
@@ -55,13 +57,20 @@ public class RunAllHandler extends AbstractHandler implements IJavaLaunchConfigu
 				} catch (ExecutionException e) {
 					e.printStackTrace();
 				}
-				
+
 				try {
-					keyboardHandler.execute(arg);
-				} catch (ExecutionException e){
-					e.printStackTrace();
+					PlatformUI.getWorkbench().getDisplay().asyncExec(new Runnable() {
+						public void run() {
+							try {
+								keyboardHandler.execute(arg);
+							} catch (ExecutionException e) {
+								CodeForestUIPlugin.log(e);
+							}
+						}
+					});
+				} catch (Exception t) {
+					CodeForestUIPlugin.log(t);
 				}
-				
 			}
 		});
 		jaguarHandler.execute(arg);
@@ -80,7 +89,7 @@ public class RunAllHandler extends AbstractHandler implements IJavaLaunchConfigu
 		if (state == null) {
 			return false;
 		}
-		
+
 		return true;
 	}
 }
