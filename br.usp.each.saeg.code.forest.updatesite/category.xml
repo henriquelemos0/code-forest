@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<site>
+   <feature url="features/br.usp.each.saeg.code.forest.feature_1.0.0.qualifier.jar" id="br.usp.each.saeg.code.forest.feature" version="1.0.0.qualifier">
+      <category name="code_forest_category"/>
+   </feature>
+   <category-def name="code_forest_category" label="CodeForest Eclipse Plugin">
+      <description>
+         CodeForest Eclipse Plugin
+      </description>
+   </category-def>
+</site>

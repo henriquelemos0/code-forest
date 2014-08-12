@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<site>
+   <description name="Code Forest Eclipse Plug-in Update Site" url="http://143.107.58.177/codeforest/">
+      Code Forest Eclipse Plug-in Update Site
+   </description>
+   <feature url="features/br.usp.each.saeg.code.forest.feature_1.0.0.201408121811.jar" id="br.usp.each.saeg.code.forest.feature" version="1.0.0.201408121811">
+      <category name="code_forest_category"/>
+   </feature>
+   <category-def name="code_forest_category" label="Code Forest Eclipse Plug-in">
+      <description>
+         Code Forest Eclipse Plug-in
+      </description>
+   </category-def>
+</site>

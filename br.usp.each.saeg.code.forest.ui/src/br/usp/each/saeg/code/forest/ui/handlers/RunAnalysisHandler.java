@@ -26,7 +26,6 @@ import br.usp.each.saeg.code.forest.source.parser.ParsingResult;
 import br.usp.each.saeg.code.forest.source.parser.SourceCodeParser;
 import br.usp.each.saeg.code.forest.source.parser.SourceCodeUtils;
 import br.usp.each.saeg.code.forest.ui.CodeForestUIPlugin;
-import br.usp.each.saeg.code.forest.ui.EditorTracker;
 import br.usp.each.saeg.code.forest.ui.markers.CodeMarkerFactory;
 import br.usp.each.saeg.code.forest.ui.project.ProjectPersistence;
 import br.usp.each.saeg.code.forest.ui.project.ProjectState;
@@ -107,7 +106,7 @@ public class RunAnalysisHandler extends AbstractHandler {
 		// quando abrir o arquivo no editor, adiciona as anotacoes... por isso
 		// existe o listener
 
-		ASTParser parser = ASTParser.newParser(AST.JLS4);
+		ASTParser parser = ASTParser.newParser(4);//AST.JLS4
 		parser.setKind(ASTParser.K_COMPILATION_UNIT);
 		char[] trimmedSource = SourceCodeUtils.readAndTrim(file);
 		parser.setSource(trimmedSource);
