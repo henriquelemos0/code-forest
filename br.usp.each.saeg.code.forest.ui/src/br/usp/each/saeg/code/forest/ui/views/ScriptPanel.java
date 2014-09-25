@@ -56,7 +56,7 @@ public class ScriptPanel extends JPanel {
         for (ScriptData scriptData : scriptElements.values()) {
             data[i][0] = scriptData.getClassName();
             data[i][1] = scriptData.getMethodName();
-            data[i][2] = String.format("%.2f", scriptData.getScore());
+            data[i][2] = String.format("%.6f", scriptData.getScore());
             data[i][3] = scriptData;
             i++;
         }
