@@ -18,7 +18,7 @@ public class ScriptFilter {
     }
 
     public float getMaximumScore() {
-        return baseScore; //Math.max(0, baseScore - (baseScore * Configuration.SCORE_THRESHOLD));
+        return  1f; //baseScore; //Math.max(0, baseScore - (baseScore * Configuration.SCORE_THRESHOLD));
     }
 
     public String getSearchString() {
