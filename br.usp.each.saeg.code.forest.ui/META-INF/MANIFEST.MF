@@ -13,7 +13,8 @@ Bundle-ClassPath: .,
  lib/jogl-all.jar,
  lib/joal.jar,
  swing2swt.jar,
- lib/swingintegration.example_0.0.2.jar
+ lib/swingintegration.example_0.0.2.jar,
+ lib/jacocoagent.jar
 Bundle-Activator: br.usp.each.saeg.code.forest.ui.CodeForestUIPlugin
 Export-Package: br.usp.each.saeg.code.forest.domain,
  br.usp.each.saeg.code.forest.metaphor,

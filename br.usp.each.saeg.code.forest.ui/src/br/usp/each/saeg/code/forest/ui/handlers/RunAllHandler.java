@@ -13,14 +13,11 @@ import br.usp.each.saeg.code.forest.ui.CodeForestUIPlugin;
 import br.usp.each.saeg.code.forest.ui.project.ProjectPersistence;
 import br.usp.each.saeg.code.forest.ui.project.ProjectState;
 import br.usp.each.saeg.code.forest.ui.project.ProjectUtils;
-import br.usp.each.saeg.code.forest.util.PropertyManager;
 
 /**
  * @author Henrique Ribeiro (henriquelemos0@gmail.com)
  */
 public class RunAllHandler extends AbstractHandler implements IJavaLaunchConfigurationConstants {
-
-	PropertyManager properties = new PropertyManager();
 
 	@Override
 	public Object execute(final ExecutionEvent arg) throws ExecutionException {
