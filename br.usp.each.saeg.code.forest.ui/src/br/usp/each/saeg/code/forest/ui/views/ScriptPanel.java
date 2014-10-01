@@ -2,12 +2,17 @@ package br.usp.each.saeg.code.forest.ui.views;
 
 import java.awt.*;
 import java.util.*;
+
 import javax.swing.*;
 import javax.swing.event.*;
 import javax.swing.table.*;
+
 import org.eclipse.core.resources.*;
+
 import br.usp.each.saeg.code.forest.domain.*;
 import br.usp.each.saeg.code.forest.ui.*;
+import br.usp.each.saeg.code.forest.ui.core.CodeForestUIPlugin;
+import br.usp.each.saeg.code.forest.ui.editor.OpenEditor;
 import br.usp.each.saeg.code.forest.ui.project.*;
 
 /**

@@ -1,6 +1,7 @@
 package br.usp.each.saeg.code.forest.domain;
 
 import br.usp.each.saeg.code.forest.ui.*;
+import br.usp.each.saeg.code.forest.ui.core.Configuration;
 
 public class ScriptEligibility {
 

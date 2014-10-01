@@ -2,13 +2,16 @@ package br.usp.each.saeg.code.forest.ui.views;
 
 import java.awt.*;
 import java.util.List;
+
 import javax.media.j3d.*;
 import javax.swing.*;
 import javax.vecmath.*;
+
 import org.eclipse.core.resources.*;
 import org.eclipse.swt.*;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.part.*;
+
 import swingintegration.example.*;
 import br.usp.each.saeg.code.forest.domain.*;
 import br.usp.each.saeg.code.forest.metaphor.*;
@@ -16,7 +19,9 @@ import br.usp.each.saeg.code.forest.metaphor.assembler.*;
 import br.usp.each.saeg.code.forest.metaphor.mouse.*;
 import br.usp.each.saeg.code.forest.metaphor.util.*;
 import br.usp.each.saeg.code.forest.ui.*;
+import br.usp.each.saeg.code.forest.ui.core.CodeForestUIPlugin;
 import br.usp.each.saeg.code.forest.ui.project.*;
+
 import com.sun.j3d.utils.behaviors.vp.*;
 import com.sun.j3d.utils.universe.*;
 

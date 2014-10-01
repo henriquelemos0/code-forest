@@ -1,11 +1,15 @@
 package br.usp.each.saeg.code.forest.domain;
 
 import java.util.*;
+
 import org.eclipse.core.resources.*;
 import org.eclipse.jdt.core.compiler.*;
 import org.eclipse.jface.text.*;
+
 import br.usp.each.saeg.code.forest.source.parser.*;
 import br.usp.each.saeg.code.forest.ui.*;
+import br.usp.each.saeg.code.forest.ui.core.CodeForestUIPlugin;
+import br.usp.each.saeg.code.forest.ui.core.Configuration;
 import br.usp.each.saeg.code.forest.xml.*;
 
 /**

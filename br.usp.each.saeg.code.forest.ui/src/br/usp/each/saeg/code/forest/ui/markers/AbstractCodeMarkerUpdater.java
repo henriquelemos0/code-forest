@@ -4,7 +4,9 @@ import org.eclipse.core.resources.*;
 import org.eclipse.core.runtime.*;
 import org.eclipse.jface.text.*;
 import org.eclipse.ui.texteditor.*;
+
 import br.usp.each.saeg.code.forest.ui.*;
+import br.usp.each.saeg.code.forest.ui.core.CodeForestUIPlugin;
 
 /**
  * @author Danilo Mutti (dmutti@gmail.com)

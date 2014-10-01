@@ -20,7 +20,7 @@ import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.ui.ISelectionService;
 import org.eclipse.ui.IWorkbenchWindow;
 
-import br.usp.each.saeg.code.forest.ui.CodeForestUIPlugin;
+import br.usp.each.saeg.code.forest.ui.core.CodeForestUIPlugin;
 
 /**
  * @author Danilo Mutti (dmutti@gmail.com)

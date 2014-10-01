@@ -2,10 +2,13 @@ package br.usp.each.saeg.code.forest.ui.markers;
 
 import java.util.*;
 import java.util.Map.*;
+
 import org.apache.commons.lang3.*;
 import org.eclipse.core.resources.*;
 import org.eclipse.core.runtime.*;
+
 import br.usp.each.saeg.code.forest.ui.*;
+import br.usp.each.saeg.code.forest.ui.core.CodeForestUIPlugin;
 
 /**
  * @author Danilo Mutti (dmutti@gmail.com)

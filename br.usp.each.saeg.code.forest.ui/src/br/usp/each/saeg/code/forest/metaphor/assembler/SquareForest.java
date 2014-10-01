@@ -1,11 +1,14 @@
 package br.usp.each.saeg.code.forest.metaphor.assembler;
 
 import java.util.*;
+
 import javax.media.j3d.*;
 import javax.vecmath.*;
+
 import br.usp.each.saeg.code.forest.domain.*;
 import br.usp.each.saeg.code.forest.metaphor.*;
 import br.usp.each.saeg.code.forest.ui.*;
+import br.usp.each.saeg.code.forest.ui.core.CodeForestUIPlugin;
 import br.usp.each.saeg.code.forest.util.*;
 
 /**

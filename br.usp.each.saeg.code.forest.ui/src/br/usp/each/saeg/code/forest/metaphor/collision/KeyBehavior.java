@@ -3,12 +3,17 @@ package br.usp.each.saeg.code.forest.metaphor.collision;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.*;
+
 import javax.media.j3d.*;
 import javax.swing.*;
 import javax.vecmath.*;
+
 import org.eclipse.core.resources.*;
+
 import com.sun.j3d.utils.universe.*;
+
 import br.usp.each.saeg.code.forest.ui.*;
+import br.usp.each.saeg.code.forest.ui.core.CodeForestUIPlugin;
 import br.usp.each.saeg.code.forest.ui.views.*;
 
 /**

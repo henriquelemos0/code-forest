@@ -1,8 +1,10 @@
-package br.usp.each.saeg.code.forest.ui;
+package br.usp.each.saeg.code.forest.ui.editor;
 
 import org.eclipse.core.resources.*;
 import org.eclipse.ui.*;
 import org.eclipse.ui.ide.*;
+
+import br.usp.each.saeg.code.forest.ui.core.CodeForestUIPlugin;
 
 public class OpenEditor {
 

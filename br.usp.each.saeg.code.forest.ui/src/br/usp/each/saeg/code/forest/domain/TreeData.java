@@ -1,10 +1,13 @@
 package br.usp.each.saeg.code.forest.domain;
 
 import java.util.*;
+
 import org.eclipse.core.resources.*;
 import org.eclipse.jface.text.*;
+
 import br.usp.each.saeg.code.forest.metaphor.*;
 import br.usp.each.saeg.code.forest.ui.*;
+import br.usp.each.saeg.code.forest.ui.core.Configuration;
 import br.usp.each.saeg.code.forest.ui.markers.*;
 
 /**

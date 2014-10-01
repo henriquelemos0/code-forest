@@ -2,10 +2,13 @@ package br.usp.each.saeg.code.forest.source.parser;
 
 import java.math.*;
 import java.util.*;
+
 import org.apache.commons.lang3.*;
 import org.eclipse.jdt.core.compiler.*;
 import org.eclipse.jdt.core.dom.*;
+
 import br.usp.each.saeg.code.forest.ui.*;
+import br.usp.each.saeg.code.forest.ui.core.CodeForestUIPlugin;
 import br.usp.each.saeg.code.forest.xml.*;
 
 /**

@@ -1,12 +1,18 @@
 package br.usp.each.saeg.code.forest.metaphor.mouse;
 
 import java.awt.event.*;
+
 import javax.media.j3d.*;
+
 import org.eclipse.core.resources.*;
+
 import br.usp.each.saeg.code.forest.metaphor.*;
 import br.usp.each.saeg.code.forest.metaphor.Leaf;
 import br.usp.each.saeg.code.forest.metaphor.building.blocks.*;
 import br.usp.each.saeg.code.forest.ui.*;
+import br.usp.each.saeg.code.forest.ui.core.CodeForestUIPlugin;
+import br.usp.each.saeg.code.forest.ui.editor.OpenEditor;
+
 import com.sun.j3d.utils.picking.*;
 
 /**

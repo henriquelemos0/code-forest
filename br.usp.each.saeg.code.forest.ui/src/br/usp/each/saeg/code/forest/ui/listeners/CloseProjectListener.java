@@ -1,7 +1,10 @@
 package br.usp.each.saeg.code.forest.ui.listeners;
 
 import org.eclipse.core.resources.*;
+
 import br.usp.each.saeg.code.forest.ui.*;
+import br.usp.each.saeg.code.forest.ui.core.CodeForestUIPlugin;
+import br.usp.each.saeg.code.forest.ui.core.PluginCleanup;
 
 /**
  * @author Danilo Mutti (dmutti@gmail.com)

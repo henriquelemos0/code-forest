@@ -9,7 +9,7 @@ import org.eclipse.debug.core.ILaunchesListener2;
 import org.eclipse.jdt.launching.IJavaLaunchConfigurationConstants;
 import org.eclipse.ui.PlatformUI;
 
-import br.usp.each.saeg.code.forest.ui.CodeForestUIPlugin;
+import br.usp.each.saeg.code.forest.ui.core.CodeForestUIPlugin;
 import br.usp.each.saeg.code.forest.ui.project.ProjectPersistence;
 import br.usp.each.saeg.code.forest.ui.project.ProjectState;
 import br.usp.each.saeg.code.forest.ui.project.ProjectUtils;

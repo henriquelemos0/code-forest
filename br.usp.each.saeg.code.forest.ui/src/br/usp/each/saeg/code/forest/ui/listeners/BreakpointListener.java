@@ -3,7 +3,9 @@ package br.usp.each.saeg.code.forest.ui.listeners;
 import org.eclipse.core.resources.*;
 import org.eclipse.debug.core.*;
 import org.eclipse.debug.core.model.*;
+
 import br.usp.each.saeg.code.forest.ui.*;
+import br.usp.each.saeg.code.forest.ui.core.CodeForestUIPlugin;
 
 /**
  * @author Danilo Mutti (dmutti@gmail.com)

@@ -1,15 +1,19 @@
 package br.usp.each.saeg.code.forest.ui.views;
 
 import java.awt.*;
+
 import javax.media.j3d.*;
 import javax.swing.*;
 import javax.swing.event.*;
+
 import org.apache.commons.lang3.*;
 import org.eclipse.core.resources.*;
+
 import br.usp.each.saeg.code.forest.domain.*;
 import br.usp.each.saeg.code.forest.metaphor.*;
 import br.usp.each.saeg.code.forest.metaphor.integration.*;
 import br.usp.each.saeg.code.forest.ui.*;
+import br.usp.each.saeg.code.forest.ui.core.CodeForestUIPlugin;
 
 /**
  * @author Danilo Mutti (dmutti@gmail.com)

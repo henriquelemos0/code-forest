@@ -6,7 +6,9 @@ import org.eclipse.debug.core.*;
 import org.eclipse.debug.core.model.*;
 import org.eclipse.jdt.core.*;
 import org.eclipse.jdt.launching.*;
+
 import br.usp.each.saeg.code.forest.ui.*;
+import br.usp.each.saeg.code.forest.ui.core.CodeForestUIPlugin;
 
 /**
  * @author Danilo Mutti (dmutti@gmail.com)

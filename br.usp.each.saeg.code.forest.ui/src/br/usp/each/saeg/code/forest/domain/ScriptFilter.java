@@ -1,7 +1,9 @@
 package br.usp.each.saeg.code.forest.domain;
 
 import org.apache.commons.lang3.*;
+
 import br.usp.each.saeg.code.forest.ui.*;
+import br.usp.each.saeg.code.forest.ui.core.Configuration;
 
 public class ScriptFilter {
 

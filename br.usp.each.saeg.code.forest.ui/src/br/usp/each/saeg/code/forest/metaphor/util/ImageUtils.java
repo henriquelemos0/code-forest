@@ -1,9 +1,12 @@
 package br.usp.each.saeg.code.forest.metaphor.util;
 
 import java.awt.*;
+
 import javax.media.j3d.*;
 import javax.vecmath.*;
+
 import br.usp.each.saeg.code.forest.ui.*;
+import br.usp.each.saeg.code.forest.ui.core.Configuration;
 
 /**
  * @author Danilo Mutti (dmutti@gmail.com)

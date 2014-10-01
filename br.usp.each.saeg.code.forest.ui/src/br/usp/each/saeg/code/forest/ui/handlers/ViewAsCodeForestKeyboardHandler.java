@@ -5,6 +5,7 @@ import org.eclipse.core.resources.*;
 import org.eclipse.ui.*;
 
 import br.usp.each.saeg.code.forest.ui.*;
+import br.usp.each.saeg.code.forest.ui.core.CodeForestUIPlugin;
 import br.usp.each.saeg.code.forest.ui.project.*;
 import br.usp.each.saeg.code.forest.ui.views.*;
 
