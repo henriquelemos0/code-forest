@@ -1,6 +1,72 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?eclipse version="3.4"?>
 <plugin>
+<extension point="org.eclipse.debug.core.launchModes">
+	<launchMode
+		label="%coverage"
+	    mode="coverage"/>
+</extension>
+<extension point="org.eclipse.jdt.junit.testRunListeners">
+	<testRunListener class="br.usp.each.saeg.code.forest.launching.JaguarRunListener"/>
+</extension>
+<extension point="org.eclipse.debug.core.launchDelegates">
+	<launchDelegate
+	    delegate="br.usp.each.saeg.code.forest.launching.JavaApplicationLauncher"
+	    id="br.usp.each.saeg.code.forest.junitLauncher"
+	    modes="coverage"
+	    name="%junitDelegateName"
+	    type="org.eclipse.jdt.junit.launchconfig"/>
+</extension>
+<!--
+<extension point="org.eclipse.debug.core.launchConfigurationTypes">
+    <launchConfigurationType
+        name="Jaguar Runner"
+        delegate="br.usp.each.saeg.code.forest.launching.JaguarLauncher"
+        modes="coverage"               
+        type="org.eclipse.jdt.junit.launchconfig"
+        id="br.usp.each.saeg.code.forest.jaguarLauncher">
+    </launchConfigurationType>
+</extension>
+-->
+<extension point="org.eclipse.debug.ui.launchGroups">
+	<launchGroup
+		id="br.usp.each.saeg.code.forest.ui.launchGroup.coverage"
+		label="%CoverageLaunchGroup.label"
+		mode="coverage"
+        title="%CoverageLaunchGroup.title"/>
+</extension>
+<extension point="org.eclipse.core.expressions.propertyTesters">
+	<propertyTester
+	    class="br.usp.each.saeg.code.forest.ui.actions.ContextualLaunchableTester"
+	    id="br.usp.each.saeg.code.forest.ui.propertyTester.contextualLaunchable"
+	    namespace="br.usp.each.saeg.code.forest.ui"
+	    properties="launchable"
+	    type="java.lang.Object"/>
+</extension>
+<shortcut
+	label="%JUnitTestShortcut.label"
+	class="br.usp.each.saeg.code.forest.ui.launching.JaguarLaunchShortcut:org.eclipse.jdt.junit.junitShortcut"
+	modes="coverage"
+	id="br.usp.each.saeg.code.forest.ui.junitShortcut">
+	<contextualLaunch>
+	  <enablement>
+	    <with variable="selection">
+	      <test property="br.usp.each.saeg.code.forest.ui.launchable" args="org.eclipse.jdt.junit.junitShortcut"/>
+	    </with>
+	  </enablement>
+	</contextualLaunch>
+</shortcut>
+<extension point="org.eclipse.debug.ui.launchConfigurationTabGroups">
+    <launchConfigurationTabGroup
+        type="org.eclipse.jdt.junit.launchconfig"
+        class="br.usp.each.saeg.code.forest.ui.launching.JaguarTabGroup"
+        id="br.usp.each.saeg.code.forest.ui.launcher.JaguarTabGroup">
+         <launchMode
+           description="%junitTabGroupDescription.coverage"
+           mode="coverage"/>
+    </launchConfigurationTabGroup>
+</extension>
+
 <extension point="org.eclipse.core.resources.markers"
       id="br.usp.each.saeg.code.forest.ui.marker.no"
       name="No Rank Code Marker">
@@ -129,7 +195,6 @@
          verticalRulerPreferenceValue="false">
      </specification>
    </extension>
-
     <extension point="org.eclipse.ui.editors.annotationTypes">
         <type
             markerSeverity="0"
@@ -193,6 +258,11 @@
             name="br.usp.each.saeg.code.forest.ui.category.name">
         </category>
         <command
+            categoryId="org.eclipse.debug.ui.category.run"
+            description="%CoverageJUnitTestCommand.description"
+            id="com.mountainminds.eclemma.ui.junitShortcut.coverage"
+            name="%CoverageJUnitTestCommand.name"/>
+        <command
             id="br.usp.each.saeg.code.forest.ui.commands.runAll"
             categoryId="br.usp.each.saeg.code.forest.ui.category"
             name="br.usp.each.saeg.code.forest.ui.commands.runAll">
@@ -201,6 +271,11 @@
             id="br.usp.each.saeg.code.forest.ui.commands.runJaguar"
             categoryId="br.usp.each.saeg.code.forest.ui.category"
             name="br.usp.each.saeg.code.forest.ui.commands.runJaguar">
+        </command>
+        <command
+            id="br.usp.each.saeg.code.forest.ui.commands.runTests"
+            categoryId="br.usp.each.saeg.code.forest.ui.category"
+            name="br.usp.each.saeg.code.forest.ui.commands.runTests">
         </command>
         <command
             id="br.usp.each.saeg.code.forest.ui.commands.runAnalysis"
@@ -228,6 +303,10 @@
             class="br.usp.each.saeg.code.forest.ui.handlers.RunJaguarHandler"
             commandId="br.usp.each.saeg.code.forest.ui.commands.runJaguar">
         </handler>
+        <handler
+            class="br.usp.each.saeg.code.forest.ui.handlers.RunTestsHandler"
+            commandId="br.usp.each.saeg.code.forest.ui.commands.runTests">
+        </handler>        
         <handler
             class="br.usp.each.saeg.code.forest.ui.handlers.RunAnalysisHandler"
             commandId="br.usp.each.saeg.code.forest.ui.commands.runAnalysis">
@@ -279,6 +358,12 @@
                 id="br.usp.each.saeg.code.forest.ui.menu.item.runJaguar"
                 label="Run Jaguar">
             </command>
+            <command
+                commandId="br.usp.each.saeg.code.forest.ui.commands.runTests"
+                icon="icons/rank.gif"
+                id="br.usp.each.saeg.code.forest.ui.menu.item.runTests"
+                label="Run Tests">
+            </command>            
             <command
                 commandId="br.usp.each.saeg.code.forest.ui.commands.runAnalysis"
                 icon="icons/analyse_it.gif"

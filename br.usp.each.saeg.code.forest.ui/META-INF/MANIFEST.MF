@@ -44,12 +44,6 @@ Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.jdt.ui,
  org.eclipse.jdt.launching,
  org.eclipse.debug.core,
- org.eclipse.ui,
- org.eclipse.core.runtime,
- org.eclipse.ui,
- org.eclipse.core.runtime,
- org.eclipse.ui,
- org.eclipse.core.runtime,
- org.eclipse.ui,
- org.eclipse.core.runtime
+ org.eclipse.debug.ui;bundle-version="3.9.0",
+ org.eclipse.jdt.junit;bundle-version="3.7.200"
 Bundle-ActivationPolicy: lazy

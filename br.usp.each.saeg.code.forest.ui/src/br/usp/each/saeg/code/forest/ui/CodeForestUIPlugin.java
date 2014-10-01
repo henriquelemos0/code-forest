@@ -20,6 +20,7 @@ import br.usp.each.saeg.code.forest.ui.project.*;
 public class CodeForestUIPlugin extends AbstractUIPlugin {
 
     public static final String ID = "br.usp.each.saeg.codeforest.ui";
+    public static final String LAUNCH_MODE = "coverage"; //$NON-NLS-1$
     private static CodeForestUIPlugin instance;
     private EditorTracker tracker;
     private static final IWorkbenchWindow[] NO_WINDOWS = new IWorkbenchWindow[0];

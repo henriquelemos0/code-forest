@@ -135,5 +135,11 @@ public class PropertyManager {
 		}
 		return prop;
 	}
+
+	@Override
+	public String toString() {
+		return "PropertyManager [jacocoAgentJar=" + jacocoAgentJar + ", jaguarJar=" + jaguarJar + ", compiledTestsDir=" + compiledTestsDir
+				+ ", compiledClassesDir=" + compiledClassesDir + ", projectDir=" + projectDir + ", heuristic=" + heuristic + "]";
+	}
 	
 }
