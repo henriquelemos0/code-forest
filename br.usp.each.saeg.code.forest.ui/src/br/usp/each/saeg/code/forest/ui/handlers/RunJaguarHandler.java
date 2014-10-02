@@ -4,6 +4,7 @@ import org.eclipse.core.commands.AbstractHandler;
 import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.resources.IProject;
+import org.eclipse.core.runtime.CoreException;
 import org.eclipse.debug.core.ILaunchesListener2;
 import org.eclipse.jdt.launching.IJavaLaunchConfigurationConstants;
 
@@ -40,7 +41,11 @@ public class RunJaguarHandler extends AbstractHandler implements IJavaLaunchConf
 			return null;
 		}
 
-		jaguar.run();
+		try {
+			jaguar.run();
+		} catch (CoreException e) {
+			e.getStatus();
+		}
 		
 		CodeForestUIPlugin.ui(project, this, "run jaguar");
 		return null;

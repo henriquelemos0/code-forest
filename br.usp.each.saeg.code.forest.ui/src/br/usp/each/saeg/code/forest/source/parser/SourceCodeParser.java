@@ -1,21 +1,47 @@
 package br.usp.each.saeg.code.forest.source.parser;
 
-import java.math.*;
-import java.util.*;
+import java.math.BigDecimal;
+import java.util.ArrayDeque;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Deque;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
-import org.apache.commons.lang3.*;
-import org.eclipse.jdt.core.compiler.*;
-import org.eclipse.jdt.core.dom.*;
+import org.apache.commons.lang3.StringUtils;
+import org.eclipse.jdt.core.compiler.IScanner;
+import org.eclipse.jdt.core.compiler.ITerminalSymbols;
+import org.eclipse.jdt.core.compiler.InvalidInputException;
+import org.eclipse.jdt.core.dom.ASTNode;
+import org.eclipse.jdt.core.dom.ASTVisitor;
+import org.eclipse.jdt.core.dom.AnonymousClassDeclaration;
+import org.eclipse.jdt.core.dom.CompilationUnit;
+import org.eclipse.jdt.core.dom.EnumDeclaration;
+import org.eclipse.jdt.core.dom.Initializer;
+import org.eclipse.jdt.core.dom.MethodDeclaration;
+import org.eclipse.jdt.core.dom.Modifier;
+import org.eclipse.jdt.core.dom.PackageDeclaration;
+import org.eclipse.jdt.core.dom.SingleVariableDeclaration;
+import org.eclipse.jdt.core.dom.Statement;
+import org.eclipse.jdt.core.dom.TypeDeclaration;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-import br.usp.each.saeg.code.forest.ui.*;
 import br.usp.each.saeg.code.forest.ui.core.CodeForestUIPlugin;
-import br.usp.each.saeg.code.forest.xml.*;
+import br.usp.each.saeg.code.forest.xml.XmlClass;
+import br.usp.each.saeg.code.forest.xml.XmlInput;
+import br.usp.each.saeg.code.forest.xml.XmlMethod;
+import br.usp.each.saeg.code.forest.xml.XmlPackage;
+import br.usp.each.saeg.code.forest.xml.XmlStatement;
 
 /**
  * @author Danilo Mutti (dmutti@gmail.com)
  */
 public class SourceCodeParser extends ASTVisitor {
 
+	private final static Logger logger = LoggerFactory.getLogger(SourceCodeParser.class.getName());
+	
     private static final String LINE_SEPARATOR = System.getProperty("line.separator");
     private final XmlInput input;
     private final CompilationUnit cu;
@@ -212,7 +238,7 @@ public class SourceCodeParser extends ASTVisitor {
         XmlClass xmlClass = findParsedXmlClass();
         XmlMethod xmlMethod = xmlClass.byName(methodName);
         if (xmlMethod == null) {
-            CodeForestUIPlugin.warn("method [" + methodName + "], class [" + getCurrentClass() + "] not found in codeforest.xml");
+            logger.warn("method [" + methodName + "], class [" + getCurrentClass() + "] not found in codeforest.xml");
             xmlMethod = new XmlMethod();
             xmlMethod.setName(methodName);
             xmlMethod.setScore(MINUS_ONE);
@@ -369,7 +395,7 @@ public class SourceCodeParser extends ASTVisitor {
     private XmlClass findParsedXmlClass() {
         XmlClass xmlClass = parsingResult.getXmlPackage().byName(getCurrentClass());
         if (xmlClass == null) {
-            CodeForestUIPlugin.warn("class [" + getCurrentClass() + "] not found in codeforest.xml");
+            logger.warn("class [" + getCurrentClass() + "] not found in codeforest.xml");
             XmlClass fake = new XmlClass();
             fake.setName(getCurrentClass());
             fake.setScore(MINUS_ONE);
@@ -384,7 +410,7 @@ public class SourceCodeParser extends ASTVisitor {
             parsingResult.setXmlPackage(input.byName(packageName));
         }
         if (parsingResult.isXmlPackageNull()) {
-            CodeForestUIPlugin.warn("package [" + packageName + "] not found in codeforest.xml");
+            logger.warn("package [" + packageName + "] not found in codeforest.xml");
             XmlPackage fake = new XmlPackage();
             fake.setName(packageName);
             fake.setScore(MINUS_ONE);

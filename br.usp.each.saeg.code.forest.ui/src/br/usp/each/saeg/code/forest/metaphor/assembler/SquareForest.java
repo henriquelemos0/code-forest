@@ -1,21 +1,30 @@
 package br.usp.each.saeg.code.forest.metaphor.assembler;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
-import javax.media.j3d.*;
-import javax.vecmath.*;
+import javax.media.j3d.Transform3D;
+import javax.media.j3d.TransformGroup;
+import javax.vecmath.Vector3d;
 
-import br.usp.each.saeg.code.forest.domain.*;
-import br.usp.each.saeg.code.forest.metaphor.*;
-import br.usp.each.saeg.code.forest.ui.*;
-import br.usp.each.saeg.code.forest.ui.core.CodeForestUIPlugin;
-import br.usp.each.saeg.code.forest.util.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import br.usp.each.saeg.code.forest.domain.TreeData;
+import br.usp.each.saeg.code.forest.metaphor.Forest;
+import br.usp.each.saeg.code.forest.metaphor.Size;
+import br.usp.each.saeg.code.forest.metaphor.Trunk;
+import br.usp.each.saeg.code.forest.ui.core.LogListener;
+import br.usp.each.saeg.code.forest.util.CollectionUtils;
 
 /**
  * @author Danilo Mutti (dmutti@gmail.com)
  */
 public class SquareForest implements Forest {
 
+	private final static Logger logger = LoggerFactory.getLogger(LogListener.class.getName());
+	
     static final float RADIUS = Size.BIG.getRadius();
     private final ForestRestrictions restrictions = new ForestRestrictions();
     private List<SquareAssembler> matrix = new ArrayList<SquareAssembler>();
@@ -93,7 +102,7 @@ public class SquareForest implements Forest {
             }
             debug.append(i).append(" - ").append(scores).append("\n");
         }
-        CodeForestUIPlugin.info(debug.toString());
+        logger.info(debug.toString());
     }
 
     @Override

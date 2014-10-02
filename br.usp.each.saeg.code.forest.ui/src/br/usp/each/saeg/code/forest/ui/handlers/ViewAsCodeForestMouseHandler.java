@@ -1,13 +1,13 @@
 package br.usp.each.saeg.code.forest.ui.handlers;
 
-import org.eclipse.core.commands.*;
-import org.eclipse.core.resources.*;
-import org.eclipse.ui.*;
+import org.eclipse.core.commands.ExecutionEvent;
+import org.eclipse.core.commands.ExecutionException;
+import org.eclipse.core.resources.IProject;
+import org.eclipse.ui.IWorkbenchPage;
 
-import br.usp.each.saeg.code.forest.ui.*;
 import br.usp.each.saeg.code.forest.ui.core.CodeForestUIPlugin;
-import br.usp.each.saeg.code.forest.ui.project.*;
-import br.usp.each.saeg.code.forest.ui.views.*;
+import br.usp.each.saeg.code.forest.ui.project.ProjectUtils;
+import br.usp.each.saeg.code.forest.ui.views.CodeForestMouseView;
 
 /**
  * @author Danilo Mutti (dmutti@gmail.com)

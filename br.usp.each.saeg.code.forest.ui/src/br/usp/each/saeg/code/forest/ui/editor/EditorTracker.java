@@ -1,19 +1,30 @@
 package br.usp.each.saeg.code.forest.ui.editor;
 
-import java.util.*;
+import java.util.Collection;
 
-import org.eclipse.ui.*;
+import org.eclipse.ui.IEditorReference;
+import org.eclipse.ui.IPartListener2;
+import org.eclipse.ui.IWindowListener;
+import org.eclipse.ui.IWorkbench;
+import org.eclipse.ui.IWorkbenchPage;
+import org.eclipse.ui.IWorkbenchPartReference;
+import org.eclipse.ui.IWorkbenchWindow;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-import br.usp.each.saeg.code.forest.domain.*;
-import br.usp.each.saeg.code.forest.source.parser.*;
-import br.usp.each.saeg.code.forest.ui.core.CodeForestUIPlugin;
-import br.usp.each.saeg.code.forest.ui.project.*;
+import br.usp.each.saeg.code.forest.domain.TreeData;
+import br.usp.each.saeg.code.forest.source.parser.SourceCodeUtils;
+import br.usp.each.saeg.code.forest.ui.core.LogListener;
+import br.usp.each.saeg.code.forest.ui.project.ProjectPersistence;
+import br.usp.each.saeg.code.forest.ui.project.ProjectState;
+import br.usp.each.saeg.code.forest.ui.project.ProjectToolkit;
 
 /**
  * @author Danilo Mutti (dmutti@gmail.com)
  */
 public class EditorTracker {
 
+	private final static Logger logger = LoggerFactory.getLogger(LogListener.class.getName());
     private final IWorkbench workbench;
 
     private IWindowListener windowListener = new IWindowListener() {
@@ -108,7 +119,7 @@ public class EditorTracker {
 
         Collection<TreeData> analysis = state.getAnalysisResult().get(fileName);
         if (analysis == null) {
-            CodeForestUIPlugin.info("[" + SourceCodeUtils.asString(toolkit.getFile()) + "] no data found...");
+            logger.info("[" + SourceCodeUtils.asString(toolkit.getFile()) + "] no data found...");
             return;
         }
         state.getMarked().add(fileName);

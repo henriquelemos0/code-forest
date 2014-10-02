@@ -1,9 +1,9 @@
 package br.usp.each.saeg.code.forest.ui.handlers;
 
-import java.util.*;
-import org.eclipse.core.expressions.*;
-import org.eclipse.core.resources.*;
-import br.usp.each.saeg.code.forest.ui.project.*;
+import org.eclipse.core.expressions.PropertyTester;
+import org.eclipse.core.resources.IProject;
+
+import br.usp.each.saeg.code.forest.ui.project.ProjectUtils;
 
 /**
  * @author Danilo Mutti (dmutti@gmail.com)

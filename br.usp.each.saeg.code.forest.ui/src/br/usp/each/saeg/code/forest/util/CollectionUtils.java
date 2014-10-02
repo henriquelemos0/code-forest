@@ -1,6 +1,9 @@
 package br.usp.each.saeg.code.forest.util;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
 
 /**
  * @author Danilo Mutti (dmutti@gmail.com)

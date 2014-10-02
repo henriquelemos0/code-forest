@@ -1,4 +1,6 @@
 Manifest-Version: 1.0
+Eclipse-BuddyPolicy: dependent
+Eclipse-RegisterBuddy: ch.qos.logback
 Bundle-ManifestVersion: 2
 Bundle-Name: Ui
 Bundle-SymbolicName: br.usp.each.saeg.code.forest.ui;singleton:=true
@@ -14,7 +16,10 @@ Bundle-ClassPath: .,
  lib/joal.jar,
  swing2swt.jar,
  lib/swingintegration.example_0.0.2.jar,
- lib/jacocoagent.jar
+ lib/jacocoagent.jar,
+ lib/slf4j-api-1.7.7.jar,
+ lib/logback-classic-1.1.2.jar,
+ lib/logback-core-1.1.2.jar
 Bundle-Activator: br.usp.each.saeg.code.forest.ui.core.CodeForestUIPlugin
 Export-Package: br.usp.each.saeg.code.forest.domain,
  br.usp.each.saeg.code.forest.metaphor,
@@ -25,7 +30,6 @@ Export-Package: br.usp.each.saeg.code.forest.domain,
  br.usp.each.saeg.code.forest.metaphor.mouse,
  br.usp.each.saeg.code.forest.metaphor.util,
  br.usp.each.saeg.code.forest.source.parser,
- br.usp.each.saeg.code.forest.ui,
  br.usp.each.saeg.code.forest.ui.handlers,
  br.usp.each.saeg.code.forest.ui.listeners,
  br.usp.each.saeg.code.forest.ui.markers,

@@ -12,7 +12,6 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.jdt.core.JavaCore;
-import org.eclipse.jdt.core.dom.AST;
 import org.eclipse.jdt.core.dom.ASTParser;
 import org.eclipse.jdt.core.dom.CompilationUnit;
 import org.eclipse.ui.IEditorReference;
@@ -112,6 +111,7 @@ public class RunAnalysisHandler extends AbstractHandler {
 		parser.setSource(trimmedSource);
 		parser.setResolveBindings(true);
 
+		@SuppressWarnings("unchecked")
 		Hashtable<String, String> options = JavaCore.getOptions();
 		options.put(JavaCore.COMPILER_DOC_COMMENT_SUPPORT, JavaCore.DISABLED);
 		parser.setCompilerOptions(options);

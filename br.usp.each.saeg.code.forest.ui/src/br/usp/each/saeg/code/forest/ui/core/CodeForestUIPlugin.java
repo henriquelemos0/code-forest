@@ -26,6 +26,7 @@ public class CodeForestUIPlugin extends AbstractUIPlugin {
     private static CodeForestUIPlugin instance;
     private EditorTracker tracker;
     private static final IWorkbenchWindow[] NO_WINDOWS = new IWorkbenchWindow[0];
+    private LogListener logListener = new LogListener();
 
     /** Identifier for the 'cf' launch group. */
     public static final String ID_COVERAGE_LAUNCH_GROUP = ID + ".launchGroup.cf";
@@ -34,6 +35,7 @@ public class CodeForestUIPlugin extends AbstractUIPlugin {
         super.start(context);
         instance = this;
         instance.tracker = new EditorTracker(getWorkbench());
+        instance.getLog().addLogListener(logListener);
         new CloseAllViewsListener().register();;
         new CloseProjectListener().register();
         new BreakpointListener().register();
