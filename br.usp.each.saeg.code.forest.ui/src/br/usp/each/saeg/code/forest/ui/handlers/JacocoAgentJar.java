@@ -17,7 +17,7 @@ public class JacocoAgentJar {
 	private static final char QUOTE = '"';
 	private static final char SLASH = '\\';
 	
-	public String getVmArguments() throws CoreException {
+	public String getVmArguments(String includes) throws CoreException {
 		URL agentfileurl = null;
 		try {
 			agentfileurl = FileLocator.toFileURL(AgentJar.getResource());
@@ -26,11 +26,11 @@ public class JacocoAgentJar {
 		}
 		
 	    File jacocoJar = new Path(agentfileurl.getPath()).toFile();
-		return String.format("-javaagent:%s=%s", jacocoJar, "output=tcpserver");
+		return String.format("-javaagent:%s=output=%s,includes=%s", jacocoJar, "tcpserver", includes);
 	}
 	
-	public String getQuotedVmArguments() throws CoreException{
-		return quote(getVmArguments());
+	public String getQuotedVmArguments(String includes) throws CoreException{
+		return quote(getVmArguments(includes));
 	}
 	
 	/**

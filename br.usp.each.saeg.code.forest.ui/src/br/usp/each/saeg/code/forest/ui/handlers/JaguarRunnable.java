@@ -12,6 +12,7 @@ import org.eclipse.debug.core.ILaunchConfigurationType;
 import org.eclipse.debug.core.ILaunchConfigurationWorkingCopy;
 import org.eclipse.debug.core.ILaunchManager;
 import org.eclipse.debug.core.ILaunchesListener2;
+import org.eclipse.jdt.core.IClasspathEntry;
 import org.eclipse.jdt.launching.IJavaLaunchConfigurationConstants;
 import org.eclipse.jdt.launching.IRuntimeClasspathEntry;
 import org.eclipse.jdt.launching.JavaRuntime;
@@ -49,8 +50,8 @@ public class JaguarRunnable implements IJavaLaunchConfigurationConstants {
 		} catch (CoreException e) {
 			throw new CoreException(CodeForestStatus.JAGUAR_CREATE_LAUNCH_ERROR.getStatus(e));
 		}
-		
-		workingCopy.setAttribute(ATTR_VM_ARGUMENTS, jacocoJar.getVmArguments());
+
+		workingCopy.setAttribute(ATTR_VM_ARGUMENTS, jacocoJar.getQuotedVmArguments(properties.getIncludes()));
 
 		List<String> classpath = buildClassPath();
 
@@ -58,8 +59,10 @@ public class JaguarRunnable implements IJavaLaunchConfigurationConstants {
 		workingCopy.setAttribute(ATTR_DEFAULT_CLASSPATH, false);
 
 		workingCopy.setAttribute(ATTR_MAIN_TYPE_NAME, "br.usp.each.saeg.jaguar.runner.JaguarRunner");
-		workingCopy.setAttribute(ATTR_PROGRAM_ARGUMENTS, properties.getHeuristic() + " " + properties.getProjectDir() + " "
-				+ properties.getCompiledClassesDir() + " " + properties.getCompiledTestsDir() + " ");
+		workingCopy.setAttribute(
+				ATTR_PROGRAM_ARGUMENTS,
+				properties.getHeuristic() + " " + properties.getProjectDir() + " " + properties.getCompiledClassesDir() + " "
+						+ properties.getCompiledTestsDir() + " ");
 
 		ILaunchConfiguration configuration = null;
 		try {
@@ -89,6 +92,18 @@ public class JaguarRunnable implements IJavaLaunchConfigurationConstants {
 			IRuntimeClasspathEntry classesEntry = JavaRuntime.newArchiveRuntimeClasspathEntry(classesPath);
 			classesEntry.setClasspathProperty(IRuntimeClasspathEntry.USER_CLASSES);
 			classpath.add(classesEntry.getMemento());
+
+			IClasspathEntry[] classpathEntries = ProjectUtils.getCurrentSelectedJavaProject().getResolvedClasspath(true);
+			for (IClasspathEntry iClasspathEntry : classpathEntries) {
+				if (iClasspathEntry != null) {
+					IPath srcPath = iClasspathEntry.getSourceAttachmentPath();
+					IRuntimeClasspathEntry dependenciesEntry = JavaRuntime.newArchiveRuntimeClasspathEntry(iClasspathEntry.getPath());
+					dependenciesEntry.setSourceAttachmentPath(srcPath);
+					dependenciesEntry.setSourceAttachmentRootPath(iClasspathEntry.getSourceAttachmentRootPath());
+					dependenciesEntry.setClasspathProperty(IRuntimeClasspathEntry.ARCHIVE);
+					classpath.add(dependenciesEntry.getMemento());
+				}
+			}
 
 		} catch (CoreException e) {
 			e.printStackTrace();

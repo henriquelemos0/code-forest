@@ -15,6 +15,7 @@ public class PropertyManager {
 	private static final String JAGUAR_JAR = FOLDER_SEPARATOR + "jaguar.jar";
 	private static final String HEURISTIC = "Tarantula";
 	private static final String CONFIG_FILE = "codeforest.properties";
+	private static final String INCLUDES = "*";
 	
 	private final String projectLocation;
 	
@@ -23,6 +24,7 @@ public class PropertyManager {
 	private String compiledClassesDir;
 	private String projectDir;
 	private String heuristic;
+	private String includes;
 
 	public PropertyManager(String projectLocation) {
 		super();
@@ -39,6 +41,7 @@ public class PropertyManager {
 			setCompiledTestsDir(projectLocation + COMPILED_TESTS_DIR);
 			setCompiledClassesDir(projectLocation + COMPILED_CLASSES_DIR);
 			setHeuristic(HEURISTIC);
+			setIncludes(INCLUDES);
 			return;
 		}
 		
@@ -47,6 +50,7 @@ public class PropertyManager {
 		setCompiledTestsDir(prop.getProperty("compiled.tests.dir", projectLocation + COMPILED_TESTS_DIR));
 		setCompiledClassesDir(prop.getProperty("compiled.classes.dir", projectLocation + COMPILED_CLASSES_DIR));
 		setHeuristic(prop.getProperty("heuristic", HEURISTIC));
+		setIncludes(prop.getProperty("includes", INCLUDES));
 	}
 
 	public String getJaguarJar() {
@@ -67,6 +71,10 @@ public class PropertyManager {
 
 	public String getHeuristic() {
 		return heuristic;
+	}
+	
+	public String getIncludes() {
+		return includes;
 	}
 
 	public void setJaguarJar(String jaguarJar) {
@@ -92,6 +100,11 @@ public class PropertyManager {
 	public void setHeuristic(String heuristic) {
 		this.heuristic = heuristic;
 		System.out.println("heuristic = " + heuristic);
+	}
+	
+	public void setIncludes(String includes) {
+		this.includes = includes;
+		System.out.println("includes = " + includes);
 	}
 
 	public String getProperty(String propertyName) {

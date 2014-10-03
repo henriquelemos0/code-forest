@@ -4,7 +4,9 @@ import org.eclipse.core.commands.AbstractHandler;
 import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.resources.IProject;
+import org.eclipse.debug.core.DebugPlugin;
 import org.eclipse.debug.core.ILaunch;
+import org.eclipse.debug.core.ILaunchManager;
 import org.eclipse.debug.core.ILaunchesListener2;
 import org.eclipse.jdt.launching.IJavaLaunchConfigurationConstants;
 import org.eclipse.ui.PlatformUI;
@@ -68,6 +70,8 @@ public class RunAllHandler extends AbstractHandler implements IJavaLaunchConfigu
 				} catch (Exception t) {
 					CodeForestUIPlugin.log(t);
 				}
+				ILaunchManager manager = DebugPlugin.getDefault().getLaunchManager();
+				manager.removeLaunchListener(this);
 			}
 		});
 		jaguarHandler.execute(arg);
