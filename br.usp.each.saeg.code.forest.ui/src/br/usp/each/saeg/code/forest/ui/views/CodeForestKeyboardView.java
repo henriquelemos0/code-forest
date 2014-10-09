@@ -120,6 +120,7 @@ public class CodeForestKeyboardView extends ViewPart {
         bg.compile();
         su.addBranchGraph(bg);
         cv.addMouseListener(new DisplayTextGeometryMouseAdapter(project, this, cv, bg));
+        cv.addMouseMotionListener(new DisplayTextGeometryMouseAdapter(project, this, cv, bg));
 
         panel.add(filterPanel, BorderLayout.EAST);
         panel.add(new ScriptPanel(project, this, state, filterPanel), BorderLayout.SOUTH);

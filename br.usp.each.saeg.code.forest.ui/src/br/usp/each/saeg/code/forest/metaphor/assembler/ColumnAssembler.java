@@ -33,7 +33,7 @@ public class ColumnAssembler {
         }
         maxLeft = CollectionUtils.max(left);
         maxRight = CollectionUtils.max(right);
-        maxRadius = CollectionUtils.max(radius);
+        maxRadius = (double) CollectionUtils.max(radius);
     }
 
     public double getMaxLeft() {

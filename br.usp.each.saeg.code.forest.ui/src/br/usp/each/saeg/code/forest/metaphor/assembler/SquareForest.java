@@ -14,7 +14,7 @@ import org.slf4j.LoggerFactory;
 import br.usp.each.saeg.code.forest.domain.TreeData;
 import br.usp.each.saeg.code.forest.metaphor.Forest;
 import br.usp.each.saeg.code.forest.metaphor.Size;
-import br.usp.each.saeg.code.forest.metaphor.Trunk;
+import br.usp.each.saeg.code.forest.metaphor.Trunk;	
 import br.usp.each.saeg.code.forest.ui.core.LogListener;
 import br.usp.each.saeg.code.forest.util.CollectionUtils;
 
@@ -41,8 +41,10 @@ public class SquareForest implements Forest {
                 continue;
             }
             Trunk tr = new Trunk(data, restrictions);
-            trunks.add(tr);
-            xSize += tr.getLinearSize();
+            if(tr.getData().getScore() > 0.0){
+            	trunks.add(tr);
+            	xSize += tr.getLinearSize();
+            }
         }
         xSize = xSize + ((coveredTrees.size() + 1) * RADIUS);
         float idealX = (float) (xSize / Math.sqrt(coveredTrees.size()));

@@ -1,14 +1,30 @@
 package br.usp.each.saeg.code.forest.metaphor;
 
-import java.util.*;
-import javax.media.j3d.*;
-import javax.vecmath.*;
-import org.apache.commons.lang3.*;
-import br.usp.each.saeg.code.forest.domain.*;
-import br.usp.each.saeg.code.forest.metaphor.assembler.*;
-import br.usp.each.saeg.code.forest.metaphor.building.blocks.*;
-import br.usp.each.saeg.code.forest.metaphor.util.*;
-import com.sun.j3d.utils.geometry.*;
+import java.awt.Font;
+import java.util.List;
+
+import javax.media.j3d.BranchGroup;
+import javax.media.j3d.Font3D;
+import javax.media.j3d.FontExtrusion;
+import javax.media.j3d.Shape3D;
+import javax.media.j3d.Text3D;
+import javax.media.j3d.Transform3D;
+import javax.media.j3d.TransformGroup;
+import javax.vecmath.Vector3d;
+
+import org.apache.commons.lang3.StringUtils;
+
+import br.usp.each.saeg.code.forest.domain.BranchData;
+import br.usp.each.saeg.code.forest.metaphor.assembler.ForestRestrictions;
+import br.usp.each.saeg.code.forest.metaphor.assembler.LeafAssembler;
+import br.usp.each.saeg.code.forest.metaphor.assembler.LeafDistribution;
+import br.usp.each.saeg.code.forest.metaphor.building.blocks.CodeCone;
+import br.usp.each.saeg.code.forest.metaphor.building.blocks.CodeCylinder;
+import br.usp.each.saeg.code.forest.metaphor.building.blocks.GroupDataItem;
+import br.usp.each.saeg.code.forest.metaphor.util.ImageUtils;
+
+import com.sun.j3d.utils.geometry.Cone;
+import com.sun.j3d.utils.geometry.Cylinder;
 
 
 /**
@@ -32,6 +48,7 @@ public class Branch extends CodeGeometry {
     private Trunk trunk;
     private BranchData data;
     private final ForestRestrictions restrictions;
+    BranchGroup bgText;
 
     public Branch(Trunk trunk, BranchData data, ForestRestrictions restr, int index) {
         appearance = ImageUtils.getBranchAppearance(getMaterial(trunk.getColor()));
@@ -80,6 +97,8 @@ public class Branch extends CodeGeometry {
 
     private void calculateBranchBody() {
         body =  new CodeCylinder(trunk.getRadius()/3, (float) distribution.getSize(), Cylinder.GENERATE_NORMALS | Cylinder.GENERATE_TEXTURE_COORDS, appearance);
+        body.setCapability(CodeCylinder.ALLOW_CHILDREN_WRITE);
+        body.setCapability(CodeCylinder.ALLOW_CHILDREN_EXTEND);
     }
 
     private void calculateTranslation() {
@@ -190,5 +209,30 @@ public class Branch extends CodeGeometry {
     @Override
     public Trunk getTrunk() {
         return trunk;
+    }
+    
+    public void ativarLabel(){
+	    Text3D tex = new Text3D();
+	    String fontName = data.getName().substring(0, data.getName().lastIndexOf("(")) + " - " + String.format("%.2f", data.getScore());
+	    Font font = new Font("Arial", Font.PLAIN, 2);
+	    FontExtrusion extrusion = new FontExtrusion( );
+	    Font3D font3d = new Font3D(font, extrusion);
+	    tex.setFont3D(font3d);
+	    tex.setString(fontName);
+	    tex.setAlignment(Text3D.ALIGN_CENTER);
+	    Shape3D shape = new Shape3D(tex, appearance);
+	    bgText =  new BranchGroup();
+	    bgText.setCapability(BranchGroup.ALLOW_DETACH);
+	    bgText.setCapability(BranchGroup.ALLOW_CHILDREN_WRITE);
+	    bgText.setCapability(BranchGroup.ALLOW_CHILDREN_EXTEND);
+	    
+	    Transform3D trText = new Transform3D();
+	    trText.setTranslation(new Vector3d(15, 0, 15));
+	    TransformGroup tgText = new TransformGroup();
+	    tgText.setTransform(trText);
+	    tgText.addChild(shape);
+	    bgText.addChild(tgText);
+	   	this.getTrunk().body.addChild(bgText);
+    	Trunk.bgLabel.add(bgText);
     }
 }

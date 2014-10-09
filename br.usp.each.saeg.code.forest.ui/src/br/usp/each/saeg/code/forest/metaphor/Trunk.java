@@ -25,11 +25,13 @@ public class Trunk extends CodeGeometry {
     private float radius;
     private float step;
     private float maxHorizontal;
-    private CodeCylinder body;
+    public CodeCylinder body;
     private CodeSphere tip;
     private BranchAssembler assembler;
     private final Color3f color;
     private final ForestRestrictions restrictions;
+    BranchGroup bgText;
+    static public ArrayList<BranchGroup> bgLabel = new ArrayList<BranchGroup>();
 
     public Trunk(TreeData data, ForestRestrictions restr) {
         baseTrunk.setCapability(TransformGroup.ALLOW_CHILDREN_WRITE);
@@ -67,6 +69,8 @@ public class Trunk extends CodeGeometry {
         Transform3D tr = new Transform3D();
         tr.setTranslation(new Vector3d(0, ((data.getHeight() + OFFSET) * step), 0));
         tip = new CodeSphere(radius, Sphere.GENERATE_NORMALS | Sphere.GENERATE_TEXTURE_COORDS, appearance);
+	    body.setCapability(CodeCylinder.ALLOW_CHILDREN_WRITE);
+	    body.setCapability(CodeCylinder.ALLOW_CHILDREN_EXTEND);
         GroupDataItem item = new GroupDataItem(tr, tip);
         groupData.add(item);
         add(item.getTransformGroup());
@@ -227,5 +231,30 @@ public class Trunk extends CodeGeometry {
     @Override
     public Trunk getTrunk() {
         return this;
+    }
+    
+    public void ativarLabel(){
+        Text3D tex = new Text3D();
+        String fontName = data.getName().substring(data.getName().lastIndexOf(".")+1) + " - " + data.getScore();
+        Font font = new Font("Arial", Font.PLAIN, 2);
+        FontExtrusion extrusion = new FontExtrusion( );
+        Font3D font3d = new Font3D(font, extrusion);
+        tex.setFont3D(font3d);
+        tex.setString(fontName);
+        tex.setAlignment(Text3D.ALIGN_CENTER);
+        Shape3D shape = new Shape3D(tex, appearance);
+        bgText =  new BranchGroup();
+        bgText.setCapability(BranchGroup.ALLOW_DETACH);
+        bgText.setCapability(BranchGroup.ALLOW_CHILDREN_WRITE);
+        bgText.setCapability(BranchGroup.ALLOW_CHILDREN_EXTEND);
+        Transform3D trText = new Transform3D();
+        trText.setTranslation(new Vector3d(15, 0, 15));
+        
+	    TransformGroup tgText = new TransformGroup();
+	    tgText.setTransform(trText);
+	    tgText.addChild(shape);
+	    bgText.addChild(tgText);
+    	body.addChild(bgText);
+    	bgLabel.add(bgText);
     }
 }
