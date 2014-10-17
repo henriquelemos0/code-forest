@@ -1,9 +1,11 @@
 package br.usp.each.saeg.code.forest.ui.handlers;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.FileLocator;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.debug.core.DebugPlugin;
@@ -20,6 +22,7 @@ import org.eclipse.jdt.launching.JavaRuntime;
 import br.usp.each.saeg.code.forest.ui.core.CodeForestStatus;
 import br.usp.each.saeg.code.forest.ui.project.ProjectUtils;
 import br.usp.each.saeg.code.forest.util.PropertyManager;
+import br.usp.each.saeg.jaguar.resource.JaguarJar;
 
 public class JaguarRunnable implements IJavaLaunchConfigurationConstants {
 
@@ -36,7 +39,7 @@ public class JaguarRunnable implements IJavaLaunchConfigurationConstants {
 		this.launchesListener = launchesListener;
 	}
 
-	public void run() throws CoreException {
+	public void run() throws CoreException, IOException {
 		properties = new PropertyManager(ProjectUtils.getCurrentSelectedProject().getLocation().toString());
 		ILaunchManager manager = DebugPlugin.getDefault().getLaunchManager();
 		ILaunchConfigurationType type = manager.getLaunchConfigurationType(ID_JAVA_APPLICATION);
@@ -58,7 +61,7 @@ public class JaguarRunnable implements IJavaLaunchConfigurationConstants {
 		workingCopy.setAttribute(ATTR_CLASSPATH, classpath);
 		workingCopy.setAttribute(ATTR_DEFAULT_CLASSPATH, false);
 
-		workingCopy.setAttribute(ATTR_MAIN_TYPE_NAME, "br.usp.each.saeg.jaguar.runner.JaguarRunner");
+		workingCopy.setAttribute(ATTR_MAIN_TYPE_NAME, "br.usp.each.saeg.jaguar.core.runner.JaguarRunner");
 		workingCopy.setAttribute(
 				ATTR_PROGRAM_ARGUMENTS,
 				properties.getHeuristic() + " " + properties.getProjectDir() + " " + properties.getCompiledClassesDir() + " "
@@ -74,11 +77,11 @@ public class JaguarRunnable implements IJavaLaunchConfigurationConstants {
 
 	}
 
-	private List<String> buildClassPath() {
+	private List<String> buildClassPath() throws IOException {
 		List<String> classpath = new ArrayList<String>();
 		try {
 
-			IPath jaguarPath = new Path(properties.getJaguarJar());
+			IPath jaguarPath = new Path(FileLocator.toFileURL(JaguarJar.getResource()).getPath());
 			IRuntimeClasspathEntry jaguarEntry = JavaRuntime.newArchiveRuntimeClasspathEntry(jaguarPath);
 			jaguarEntry.setClasspathProperty(IRuntimeClasspathEntry.USER_CLASSES);
 			classpath.add(jaguarEntry.getMemento());

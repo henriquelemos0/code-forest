@@ -1,5 +1,7 @@
 package br.usp.each.saeg.code.forest.ui.handlers;
 
+import java.io.IOException;
+
 import org.eclipse.core.commands.AbstractHandler;
 import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
@@ -7,8 +9,11 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.debug.core.ILaunchesListener2;
 import org.eclipse.jdt.launching.IJavaLaunchConfigurationConstants;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import br.usp.each.saeg.code.forest.ui.core.CodeForestUIPlugin;
+import br.usp.each.saeg.code.forest.ui.core.LogListener;
 import br.usp.each.saeg.code.forest.ui.project.ProjectPersistence;
 import br.usp.each.saeg.code.forest.ui.project.ProjectState;
 import br.usp.each.saeg.code.forest.ui.project.ProjectUtils;
@@ -18,6 +23,7 @@ import br.usp.each.saeg.code.forest.ui.project.ProjectUtils;
  */
 public class RunJaguarHandler extends AbstractHandler implements IJavaLaunchConfigurationConstants {
 
+	private final static Logger logger = LoggerFactory.getLogger(LogListener.class.getName());
 	JaguarRunnable jaguar;
 	
 	public RunJaguarHandler() {
@@ -44,7 +50,11 @@ public class RunJaguarHandler extends AbstractHandler implements IJavaLaunchConf
 		try {
 			jaguar.run();
 		} catch (CoreException e) {
-			e.getStatus();
+			logger.error(e.toString());
+			e.printStackTrace();
+		} catch (IOException e) {
+			logger.error(e.toString());
+			e.printStackTrace();
 		}
 		
 		CodeForestUIPlugin.ui(project, this, "run jaguar");
