@@ -1,19 +1,28 @@
 package br.usp.each.saeg.code.forest.ui.views;
 
-import java.awt.*;
-import java.util.*;
+import java.awt.Color;
+import java.awt.Component;
+import java.util.Map;
+import java.util.TreeMap;
 
-import javax.swing.*;
-import javax.swing.event.*;
-import javax.swing.table.*;
+import javax.swing.GroupLayout;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+import javax.swing.table.TableCellRenderer;
 
-import org.eclipse.core.resources.*;
+import org.eclipse.core.resources.IProject;
 
-import br.usp.each.saeg.code.forest.domain.*;
-import br.usp.each.saeg.code.forest.ui.*;
+import br.usp.each.saeg.code.forest.domain.BranchData;
+import br.usp.each.saeg.code.forest.domain.ScriptData;
+import br.usp.each.saeg.code.forest.domain.ScriptEligibility;
+import br.usp.each.saeg.code.forest.domain.ScriptFilter;
+import br.usp.each.saeg.code.forest.domain.TreeData;
 import br.usp.each.saeg.code.forest.ui.core.CodeForestUIPlugin;
 import br.usp.each.saeg.code.forest.ui.editor.OpenEditor;
-import br.usp.each.saeg.code.forest.ui.project.*;
+import br.usp.each.saeg.code.forest.ui.project.ProjectState;
 
 /**
  * @author Danilo Mutti (dmutti@gmail.com)
@@ -114,16 +123,13 @@ public class ScriptPanel extends JPanel {
         scriptPanelLayout.setHorizontalGroup(
                 scriptPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
                 .addGroup(scriptPanelLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(scriptScroll)
-                        .addContainerGap())
+                        .addComponent(scriptScroll))
                 );
         scriptPanelLayout.setVerticalGroup(
                 scriptPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
                 .addGroup(GroupLayout.Alignment.TRAILING, scriptPanelLayout.createSequentialGroup()
-                        .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(scriptScroll, GroupLayout.PREFERRED_SIZE, 104, GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap())
+                        )
                 );
 
     }

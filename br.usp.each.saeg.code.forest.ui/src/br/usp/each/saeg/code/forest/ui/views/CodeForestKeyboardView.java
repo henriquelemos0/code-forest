@@ -29,6 +29,7 @@ public class CodeForestKeyboardView extends ViewPart {
     private FilterPanel filterPanel;
     private IProject project;
     private ProjectState state;
+    public static JLabel jLabelClasse = new JLabel(" ");
 
     /**
      * http://www.eclipse.org/swt/snippets/#awt
@@ -87,6 +88,7 @@ public class CodeForestKeyboardView extends ViewPart {
 
         JPanel panel = new JPanel();
         panel.setLayout(new BorderLayout());
+        panel.add(jLabelClasse, BorderLayout.NORTH);
         panel.add(cv, BorderLayout.CENTER);
         su = new SimpleUniverse(vp, viewer);
 
@@ -135,7 +137,7 @@ public class CodeForestKeyboardView extends ViewPart {
         transform3d.setScale(.1);
         TransformGroup transformGroup = new TransformGroup(transform3d);
 
-        transformGroup.addChild(Terrain.getFullTerrain());
+        transformGroup.addChild(Terrain.getSmallTerrain(forest));
 
         for (TransformGroup tg : forest.getTrees()) {
             transformGroup.addChild(tg);

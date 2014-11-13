@@ -70,9 +70,6 @@ public class DisplayTextGeometryMouseAdapter extends MouseAdapter {
     @Override
     public void mouseMoved(MouseEvent e){
     	try{
-	    	if(Trunk.bgLabel.size()>0)
-		    	for(int i=0; i<Trunk.bgLabel.size(); i++)
-		    		Trunk.bgLabel.get(i).detach();
 	        pick.setShapeLocation(e);
 	        PickResult result = pick.pickClosest();
 	        if(result != null){

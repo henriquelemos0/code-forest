@@ -22,6 +22,7 @@ import br.usp.each.saeg.code.forest.metaphor.building.blocks.CodeCone;
 import br.usp.each.saeg.code.forest.metaphor.building.blocks.CodeCylinder;
 import br.usp.each.saeg.code.forest.metaphor.building.blocks.GroupDataItem;
 import br.usp.each.saeg.code.forest.metaphor.util.ImageUtils;
+import br.usp.each.saeg.code.forest.ui.views.CodeForestKeyboardView;
 
 import com.sun.j3d.utils.geometry.Cone;
 import com.sun.j3d.utils.geometry.Cylinder;
@@ -212,27 +213,6 @@ public class Branch extends CodeGeometry {
     }
     
     public void ativarLabel(){
-	    Text3D tex = new Text3D();
-	    String fontName = data.getName().substring(0, data.getName().lastIndexOf("(")) + " - " + String.format("%.2f", data.getScore());
-	    Font font = new Font("Arial", Font.PLAIN, 2);
-	    FontExtrusion extrusion = new FontExtrusion( );
-	    Font3D font3d = new Font3D(font, extrusion);
-	    tex.setFont3D(font3d);
-	    tex.setString(fontName);
-	    tex.setAlignment(Text3D.ALIGN_CENTER);
-	    Shape3D shape = new Shape3D(tex, appearance);
-	    bgText =  new BranchGroup();
-	    bgText.setCapability(BranchGroup.ALLOW_DETACH);
-	    bgText.setCapability(BranchGroup.ALLOW_CHILDREN_WRITE);
-	    bgText.setCapability(BranchGroup.ALLOW_CHILDREN_EXTEND);
-	    
-	    Transform3D trText = new Transform3D();
-	    trText.setTranslation(new Vector3d(15, 0, 15));
-	    TransformGroup tgText = new TransformGroup();
-	    tgText.setTransform(trText);
-	    tgText.addChild(shape);
-	    bgText.addChild(tgText);
-	   	this.getTrunk().body.addChild(bgText);
-    	Trunk.bgLabel.add(bgText);
+    	CodeForestKeyboardView.jLabelClasse.setText(data.getName().substring(0, data.getName().lastIndexOf("(")) + " - " + String.format("%.2f", data.getScore()));
     }
 }

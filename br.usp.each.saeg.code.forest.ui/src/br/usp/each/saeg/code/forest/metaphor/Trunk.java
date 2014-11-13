@@ -3,14 +3,19 @@ package br.usp.each.saeg.code.forest.metaphor;
 import java.awt.*;
 import java.util.*;
 import java.util.List;
+
 import javax.media.j3d.*;
 import javax.vecmath.*;
+
 import org.apache.commons.lang3.*;
+
 import br.usp.each.saeg.code.forest.domain.*;
 import br.usp.each.saeg.code.forest.metaphor.assembler.*;
 import br.usp.each.saeg.code.forest.metaphor.building.blocks.*;
 import br.usp.each.saeg.code.forest.metaphor.util.*;
+import br.usp.each.saeg.code.forest.ui.views.CodeForestKeyboardView;
 import br.usp.each.saeg.code.forest.util.*;
+
 import com.sun.j3d.utils.geometry.*;
 
 /**
@@ -234,27 +239,6 @@ public class Trunk extends CodeGeometry {
     }
     
     public void ativarLabel(){
-        Text3D tex = new Text3D();
-        String fontName = data.getName().substring(data.getName().lastIndexOf(".")+1) + " - " + data.getScore();
-        Font font = new Font("Arial", Font.PLAIN, 2);
-        FontExtrusion extrusion = new FontExtrusion( );
-        Font3D font3d = new Font3D(font, extrusion);
-        tex.setFont3D(font3d);
-        tex.setString(fontName);
-        tex.setAlignment(Text3D.ALIGN_CENTER);
-        Shape3D shape = new Shape3D(tex, appearance);
-        bgText =  new BranchGroup();
-        bgText.setCapability(BranchGroup.ALLOW_DETACH);
-        bgText.setCapability(BranchGroup.ALLOW_CHILDREN_WRITE);
-        bgText.setCapability(BranchGroup.ALLOW_CHILDREN_EXTEND);
-        Transform3D trText = new Transform3D();
-        trText.setTranslation(new Vector3d(15, 0, 15));
-        
-	    TransformGroup tgText = new TransformGroup();
-	    tgText.setTransform(trText);
-	    tgText.addChild(shape);
-	    bgText.addChild(tgText);
-    	body.addChild(bgText);
-    	bgLabel.add(bgText);
+    	CodeForestKeyboardView.jLabelClasse.setText(data.getName().substring(data.getName().lastIndexOf(".") + 1) + " - " + String.format("%.2f", data.getScore()));
     }
 }

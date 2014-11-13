@@ -1,18 +1,26 @@
 package br.usp.each.saeg.code.forest.ui.views;
 
-import java.awt.*;
+import java.awt.BorderLayout;
 
-import javax.media.j3d.*;
-import javax.swing.*;
-import javax.swing.event.*;
+import javax.media.j3d.Canvas3D;
+import javax.swing.BorderFactory;
+import javax.swing.GroupLayout;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTabbedPane;
+import javax.swing.JTextField;
+import javax.swing.LayoutStyle;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 
-import org.apache.commons.lang3.*;
-import org.eclipse.core.resources.*;
+import org.apache.commons.lang3.StringUtils;
+import org.eclipse.core.resources.IProject;
 
-import br.usp.each.saeg.code.forest.domain.*;
-import br.usp.each.saeg.code.forest.metaphor.*;
-import br.usp.each.saeg.code.forest.metaphor.integration.*;
-import br.usp.each.saeg.code.forest.ui.*;
+import br.usp.each.saeg.code.forest.domain.ScriptFilter;
+import br.usp.each.saeg.code.forest.metaphor.Forest;
+import br.usp.each.saeg.code.forest.metaphor.integration.RangeSlider;
 import br.usp.each.saeg.code.forest.ui.core.CodeForestUIPlugin;
 
 /**
@@ -39,7 +47,7 @@ public class FilterPanel extends JPanel {
     private volatile boolean updateChanges = true;
     private IProject project;
     private Object parent;
-
+    
     public FilterPanel(final IProject project, final Forest arg, final Canvas3D canvas, final Object parent) {
         this.forest = arg;
         this.project = project;

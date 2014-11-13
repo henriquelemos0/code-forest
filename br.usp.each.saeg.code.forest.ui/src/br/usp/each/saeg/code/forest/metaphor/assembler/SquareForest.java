@@ -36,12 +36,13 @@ public class SquareForest implements Forest {
 
         Collections.sort(coveredTrees);
         float xSize = 0;
+        
         for (TreeData data : coveredTrees) {
             if (data.getScore() < 0 || data.getTotalLoCs() == 0) {
                 continue;
             }
             Trunk tr = new Trunk(data, restrictions);
-            if(tr.getData().getScore() > 0.0){
+            if(data.getScore() > 0.8){
             	trunks.add(tr);
             	xSize += tr.getLinearSize();
             }
