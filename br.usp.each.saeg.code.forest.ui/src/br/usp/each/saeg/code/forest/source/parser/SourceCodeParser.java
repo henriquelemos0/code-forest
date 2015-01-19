@@ -238,7 +238,7 @@ public class SourceCodeParser extends ASTVisitor {
         XmlClass xmlClass = findParsedXmlClass();
         XmlMethod xmlMethod = xmlClass.byName(methodName);
         if (xmlMethod == null) {
-            logger.warn("method [" + methodName + "], class [" + getCurrentClass() + "] not found in codeforest.xml");
+            logger.trace("method [" + methodName + "], class [" + getCurrentClass() + "] not found in codeforest.xml");
             xmlMethod = new XmlMethod();
             xmlMethod.setName(methodName);
             xmlMethod.setScore(MINUS_ONE);
@@ -395,7 +395,7 @@ public class SourceCodeParser extends ASTVisitor {
     private XmlClass findParsedXmlClass() {
         XmlClass xmlClass = parsingResult.getXmlPackage().byName(getCurrentClass());
         if (xmlClass == null) {
-            logger.warn("class [" + getCurrentClass() + "] not found in codeforest.xml");
+            logger.trace("class [" + getCurrentClass() + "] not found in codeforest.xml");
             XmlClass fake = new XmlClass();
             fake.setName(getCurrentClass());
             fake.setScore(MINUS_ONE);
@@ -410,7 +410,7 @@ public class SourceCodeParser extends ASTVisitor {
             parsingResult.setXmlPackage(input.byName(packageName));
         }
         if (parsingResult.isXmlPackageNull()) {
-            logger.warn("package [" + packageName + "] not found in codeforest.xml");
+            logger.trace("package [" + packageName + "] not found in codeforest.xml");
             XmlPackage fake = new XmlPackage();
             fake.setName(packageName);
             fake.setScore(MINUS_ONE);
