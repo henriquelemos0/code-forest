@@ -66,4 +66,10 @@ public final class CodeForestStatus {
   public static final CodeForestStatus NO_LOCAL_AGENTJAR_ERROR = new CodeForestStatus(
       5002, IStatus.ERROR, CoreMessages.StatusNO_LOCAL_AGENTJAR_ERROR_message);
 
+  /**
+   * Status indicating that it was not possible to add one of the files to the classpath.
+   */
+  public static final CodeForestStatus JAGUAR_CLASS_PATH_ERROR = new CodeForestStatus(
+      5002, IStatus.ERROR, CoreMessages.JAGUAR_CLASS_PATH_ERROR_message);
+  
 }

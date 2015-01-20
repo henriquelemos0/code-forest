@@ -4,7 +4,6 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 
-import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.FileLocator;
 import org.eclipse.core.runtime.Path;
 import org.jacoco.agent.AgentJar;
@@ -17,19 +16,19 @@ public class JacocoAgentJar {
 	private static final char QUOTE = '"';
 	private static final char SLASH = '\\';
 	
-	public String getVmArguments(String includes) throws CoreException {
+	public String getVmArguments(String includes) {
 		URL agentfileurl = null;
 		try {
 			agentfileurl = FileLocator.toFileURL(AgentJar.getResource());
 		} catch (IOException e) {
-			throw new CoreException(CodeForestStatus.NO_LOCAL_AGENTJAR_ERROR.getStatus(e));
+			ErrorHandler.showDialog(CodeForestStatus.NO_LOCAL_AGENTJAR_ERROR.getStatus(e));
 		}
 		
 	    File jacocoJar = new Path(agentfileurl.getPath()).toFile();
 		return String.format("-javaagent:%s=output=%s,includes=%s", jacocoJar, "tcpserver", includes);
 	}
 	
-	public String getQuotedVmArguments(String includes) throws CoreException{
+	public String getQuotedVmArguments(String includes){
 		return quote(getVmArguments(includes));
 	}
 	

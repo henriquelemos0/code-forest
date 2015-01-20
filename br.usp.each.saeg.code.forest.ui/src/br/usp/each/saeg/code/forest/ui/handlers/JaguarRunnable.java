@@ -18,6 +18,8 @@ import org.eclipse.jdt.core.IClasspathEntry;
 import org.eclipse.jdt.launching.IJavaLaunchConfigurationConstants;
 import org.eclipse.jdt.launching.IRuntimeClasspathEntry;
 import org.eclipse.jdt.launching.JavaRuntime;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import br.usp.each.saeg.code.forest.ui.core.CodeForestStatus;
 import br.usp.each.saeg.code.forest.ui.project.ProjectUtils;
@@ -39,7 +41,7 @@ public class JaguarRunnable implements IJavaLaunchConfigurationConstants {
 		this.launchesListener = launchesListener;
 	}
 
-	public void run() throws CoreException, IOException {
+	public void run() {
 		properties = new PropertyManager(ProjectUtils.getCurrentSelectedProject().getLocation().toString());
 		ILaunchManager manager = DebugPlugin.getDefault().getLaunchManager();
 		ILaunchConfigurationType type = manager.getLaunchConfigurationType(ID_JAVA_APPLICATION);
@@ -51,7 +53,7 @@ public class JaguarRunnable implements IJavaLaunchConfigurationConstants {
 		try {
 			workingCopy = type.newInstance(null, "Launch Jaguar");
 		} catch (CoreException e) {
-			throw new CoreException(CodeForestStatus.JAGUAR_CREATE_LAUNCH_ERROR.getStatus(e));
+			ErrorHandler.showDialog(CodeForestStatus.JAGUAR_CREATE_LAUNCH_ERROR.getStatus(e));
 		}
 
 		workingCopy.setAttribute(ATTR_VM_ARGUMENTS, jacocoJar.getQuotedVmArguments(properties.getIncludes()));
@@ -72,20 +74,26 @@ public class JaguarRunnable implements IJavaLaunchConfigurationConstants {
 			configuration = workingCopy.doSave();
 			configuration.launch(ILaunchManager.RUN_MODE, null);
 		} catch (CoreException e) {
-			throw new CoreException(CodeForestStatus.JAGUAR_RUN_LAUNCH_ERROR.getStatus(e));
+			ErrorHandler.showDialog(CodeForestStatus.JAGUAR_RUN_LAUNCH_ERROR.getStatus(e));
 		}
 
 	}
 
-	private List<String> buildClassPath() throws IOException {
+	private List<String> buildClassPath() {
 		List<String> classpath = new ArrayList<String>();
+		
+		IPath jaguarPath = null; 
 		try {
-
-			IPath jaguarPath = new Path(FileLocator.toFileURL(JaguarJar.getResource()).getPath());
+			jaguarPath = new Path(FileLocator.toFileURL(JaguarJar.getResource()).getPath());
+		} catch (IOException e) {
+			ErrorHandler.showDialog(CodeForestStatus.NO_LOCAL_AGENTJAR_ERROR.getStatus(e));
+		}
+		
+		try {
 			IRuntimeClasspathEntry jaguarEntry = JavaRuntime.newArchiveRuntimeClasspathEntry(jaguarPath);
 			jaguarEntry.setClasspathProperty(IRuntimeClasspathEntry.USER_CLASSES);
 			classpath.add(jaguarEntry.getMemento());
-
+			
 			IPath testPath = new Path(properties.getCompiledTestsDir());
 			IRuntimeClasspathEntry testEntry = JavaRuntime.newArchiveRuntimeClasspathEntry(testPath);
 			testEntry.setClasspathProperty(IRuntimeClasspathEntry.USER_CLASSES);
@@ -109,8 +117,9 @@ public class JaguarRunnable implements IJavaLaunchConfigurationConstants {
 			}
 
 		} catch (CoreException e) {
-			e.printStackTrace();
+			ErrorHandler.showDialog(CodeForestStatus.JAGUAR_CLASS_PATH_ERROR.getStatus(e));
 		}
+		
 		return classpath;
 	}
 
