@@ -26,6 +26,7 @@ public class SquareForest implements Forest {
 	private final static Logger logger = LoggerFactory.getLogger(LogListener.class.getName());
 	
     static final float RADIUS = Size.BIG.getRadius();
+    static final short MAX_TRUNK = 5;
     private final ForestRestrictions restrictions = new ForestRestrictions();
     private List<SquareAssembler> matrix = new ArrayList<SquareAssembler>();
     private List<TransformGroup> tgs = new ArrayList<TransformGroup>();
@@ -36,14 +37,20 @@ public class SquareForest implements Forest {
 
         Collections.sort(coveredTrees);
         float xSize = 0;
+        short totalAddedTrunks = 0;
         
         for (TreeData data : coveredTrees) {
+        	if (totalAddedTrunks >= MAX_TRUNK){
+        		break;
+        	}
+        	
             if (data.getScore() < 0 || data.getTotalLoCs() == 0) {
                 continue;
             }
             Trunk tr = new Trunk(data, restrictions);
             if(data.getScore() > 0.8){
             	trunks.add(tr);
+            	totalAddedTrunks++;
             	xSize += tr.getLinearSize();
             }
         }
